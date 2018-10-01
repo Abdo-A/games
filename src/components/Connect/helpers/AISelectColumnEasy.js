@@ -1,4 +1,6 @@
-export const AISelectColumnEasy = () => {
+export const AISelectColumnEasy = gameState => {
   console.log("hi, I am AISELECTCOLUMN easy");
-  return 1;
+  columnIndex =
+    Math.floor(Math.random() * (10 /*max*/ - 0 /*min*/ + 1)) + 0 /*min*/;
+  return columnIndex;
 };
