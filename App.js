@@ -1,34 +1,24 @@
-import { compose, applyMiddleware, createStore } from "redux";
-import { NativeRouter, Switch, Route } from "react-router-native";
-import { Provider } from "react-redux";
-import React from "react";
-import thunk from "redux-thunk";
+import React, { Component } from "react";
+import { TextInput, Platform, StyleSheet, Text, View } from "react-native";
+import Tic from "./src/screens/Tic/Tic";
+import Start from "./src/screens/Start/Start";
 
-import Main from "./src/pages/Main";
-import Names from "./src/pages/Names";
-import Output from "./src/pages/Output";
-import reducer from "./src/store/reducer";
-import Register from "./src/pages/Register";
+import { NativeRouter, Route, Switch } from "react-router-native";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import Connect from "./src/screens/Connect/Connect";
 
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
-
-class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <NativeRouter>
-          <Switch>
-            <Route exact path="/" component={Register} />
-            <Route exact path="/main" component={Main} />
-            <Route exact path="/names" component={Names} />
-            <Route exact path="/output" component={Output} />
-          </Switch>
-        </NativeRouter>
-      </Provider>
+      <NativeRouter>
+        <Switch>
+          <Route path="/" exact component={Start} />
+          <Route path="/tic" component={Tic} />
+          <Route path="/connect4" component={Connect} />
+        </Switch>
+      </NativeRouter>
     );
   }
 }
 
-export default App;
+const styles = StyleSheet.create({});
