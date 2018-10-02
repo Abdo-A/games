@@ -21,7 +21,22 @@ export const searchingForHorizontalIdenticalTwosHard = gameState => {
 
             selectedColumnIndex = i + 2;
             return selectedColumnIndex;
-          } else if (
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i][j] &&
+        gameState[i + 1][j]
+      ) {
+        if (gameState[i][j] == gameState[i + 1][j]) {
+          if (
             /* case 2: $_$$ */
             i - 1 <= 10 &&
             i - 1 >= 0 &&
@@ -33,8 +48,23 @@ export const searchingForHorizontalIdenticalTwosHard = gameState => {
 
             selectedColumnIndex = i - 1;
             return selectedColumnIndex;
-          } else if (
-            /* case 1: $$__$ */
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i][j] &&
+        gameState[i + 1][j]
+      ) {
+        if (gameState[i][j] == gameState[i + 1][j]) {
+          if (
+            /* case 3: $$__$ */
             i + 2 <= 10 &&
             i + 2 >= 0 &&
             !gameState[i + 2][j] &&
@@ -47,8 +77,23 @@ export const searchingForHorizontalIdenticalTwosHard = gameState => {
 
             selectedColumnIndex = i + 2;
             return selectedColumnIndex;
-          } else if (
-            /* case 2: $__$$ */
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i][j] &&
+        gameState[i + 1][j]
+      ) {
+        if (gameState[i][j] == gameState[i + 1][j]) {
+          if (
+            /* case 4: $__$$ */
             i - 1 <= 10 &&
             i - 1 >= 0 &&
             !gameState[i - 1][j] &&
@@ -61,7 +106,22 @@ export const searchingForHorizontalIdenticalTwosHard = gameState => {
 
             selectedColumnIndex = i - 1;
             return selectedColumnIndex;
-          } else if (
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i][j] &&
+        gameState[i + 1][j]
+      ) {
+        if (gameState[i][j] == gameState[i + 1][j]) {
+          if (
             /* case 5: $$__ */ i + 2 <= 10 &&
             i + 2 >= 0 &&
             gameState[i + 2] &&
@@ -73,7 +133,22 @@ export const searchingForHorizontalIdenticalTwosHard = gameState => {
 
             selectedColumnIndex = i + 2;
             return selectedColumnIndex;
-          } else if (
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i][j] &&
+        gameState[i + 1][j]
+      ) {
+        if (gameState[i][j] == gameState[i + 1][j]) {
+          if (
             /* case 5: __$$ */ i - 1 <= 10 &&
             i - 1 >= 0 &&
             gameState[i - 1] &&

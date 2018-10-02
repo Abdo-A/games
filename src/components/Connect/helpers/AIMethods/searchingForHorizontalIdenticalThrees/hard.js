@@ -16,6 +16,7 @@ export const searchingForHorizontalIdenticalThreesHard = gameState => {
           if (
             /* case 1: $$$_$ */ i + 3 <= 10 &&
             i + 3 >= 0 &&
+            gameState[i + 3] &&
             !gameState[i + 3][j] &&
             gameState[i + 4] &&
             gameState[i + 4][j] === gameState[i][j]
@@ -23,7 +24,27 @@ export const searchingForHorizontalIdenticalThreesHard = gameState => {
             console.log("horizontal threes 1");
             selectedColumnIndex = i + 3;
             return selectedColumnIndex;
-          } else if (
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i + 2] &&
+        gameState[i][j] &&
+        gameState[i + 1][j] &&
+        gameState[i + 2][j]
+      ) {
+        if (
+          gameState[i][j] == gameState[i + 1][j] &&
+          gameState[i][j] == gameState[i + 2][j]
+        ) {
+          if (
             /* case 2: $_$$$ */ i - 1 <= 10 &&
             i - 1 >= 0 &&
             !gameState[i - 1][j] &&
@@ -34,7 +55,27 @@ export const searchingForHorizontalIdenticalThreesHard = gameState => {
 
             selectedColumnIndex = i - 1;
             return selectedColumnIndex;
-          } else if (
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i + 2] &&
+        gameState[i][j] &&
+        gameState[i + 1][j] &&
+        gameState[i + 2][j]
+      ) {
+        if (
+          gameState[i][j] == gameState[i + 1][j] &&
+          gameState[i][j] == gameState[i + 2][j]
+        ) {
+          if (
             /* case 3: $$$__$ */ i + 3 <= 10 &&
             i + 3 >= 0 &&
             !gameState[i + 3][j] &&
@@ -44,7 +85,27 @@ export const searchingForHorizontalIdenticalThreesHard = gameState => {
             console.log("horizontal threes 3");
             selectedColumnIndex = i + 3;
             return selectedColumnIndex;
-          } else if (
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i + 2] &&
+        gameState[i][j] &&
+        gameState[i + 1][j] &&
+        gameState[i + 2][j]
+      ) {
+        if (
+          gameState[i][j] == gameState[i + 1][j] &&
+          gameState[i][j] == gameState[i + 2][j]
+        ) {
+          if (
             /* case 4: $__$$$ */ i - 1 <= 10 &&
             i - 1 >= 0 &&
             !gameState[i - 1][j] &&
@@ -55,7 +116,27 @@ export const searchingForHorizontalIdenticalThreesHard = gameState => {
 
             selectedColumnIndex = i - 1;
             return selectedColumnIndex;
-          } else if (
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i + 2] &&
+        gameState[i][j] &&
+        gameState[i + 1][j] &&
+        gameState[i + 2][j]
+      ) {
+        if (
+          gameState[i][j] == gameState[i + 1][j] &&
+          gameState[i][j] == gameState[i + 2][j]
+        ) {
+          if (
             /* case 5: $$$ */ i + 3 <= 10 &&
             i + 3 >= 0 &&
             !gameState[i + 3][j]
@@ -64,7 +145,27 @@ export const searchingForHorizontalIdenticalThreesHard = gameState => {
 
             selectedColumnIndex = i + 3;
             return selectedColumnIndex;
-          } else if (
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i <= 10; i++) {
+    for (let j = 0; j <= 5; j++) {
+      if (
+        gameState[i] &&
+        gameState[i + 1] &&
+        gameState[i + 2] &&
+        gameState[i][j] &&
+        gameState[i + 1][j] &&
+        gameState[i + 2][j]
+      ) {
+        if (
+          gameState[i][j] == gameState[i + 1][j] &&
+          gameState[i][j] == gameState[i + 2][j]
+        ) {
+          if (
             /* case 6: $$$ */ i - 1 <= 10 &&
             i - 1 >= 0 &&
             !gameState[i - 1][j]
