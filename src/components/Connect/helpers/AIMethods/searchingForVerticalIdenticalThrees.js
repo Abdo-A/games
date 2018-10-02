@@ -12,7 +12,7 @@ export const searchingForVerticalIdenticalThrees = gameState => {
           gameState[i][j] == gameState[i][j + 2]
         ) {
           if (!gameState[i][j + 3] && j + 3 <= 5) {
-            console.log("first vertical");
+            console.log("vertical threes");
             selectedColumnIndex = i;
             return selectedColumnIndex;
           }
