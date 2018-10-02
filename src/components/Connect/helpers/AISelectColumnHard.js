@@ -1,10 +1,8 @@
 import { horizontalOne, verticalOne } from "./AIMethods/handlingOnes";
-import { searchingForHorizontalIdenticalThrees } from "./AIMethods/searchingForHorizontalIdenticalThrees";
-import { searchingForHorizontalIdenticalTwos } from "./AIMethods/searchingForHorizontalIdenticalTwos";
+import { searchingForHorizontalIdenticalThreesHard } from "./AIMethods/searchingForHorizontalIdenticalThrees/hard";
+import { searchingForHorizontalIdenticalTwosHard } from "./AIMethods/searchingForHorizontalIdenticalTwos/hard";
 import { searchingForVerticalIdenticalThrees } from "./AIMethods/searchingForVerticalIdenticalThrees";
 import { searchingForVerticalIdenticalTwos } from "./AIMethods/searchingForVerticalIdenticalTwos";
-
-//note, it is hard because it pays attention to both vertical coins and horizontal coins
 
 export const AISelectColumnHard = gameState => {
   console.log("hi, I am AISELECTCOLUMN hard");
@@ -17,7 +15,7 @@ export const AISelectColumnHard = gameState => {
   const checkVerticalFirst = !checkHorizontalFirst;
 
   if (checkHorizontalFirst) {
-    selectedColumnIndex = searchingForHorizontalIdenticalThrees(gameState);
+    selectedColumnIndex = searchingForHorizontalIdenticalThreesHard(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
@@ -27,7 +25,7 @@ export const AISelectColumnHard = gameState => {
       return selectedColumnIndex;
     }
 
-    selectedColumnIndex = searchingForHorizontalIdenticalTwos(gameState);
+    selectedColumnIndex = searchingForHorizontalIdenticalTwosHard(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
@@ -54,7 +52,7 @@ export const AISelectColumnHard = gameState => {
       return selectedColumnIndex;
     }
 
-    selectedColumnIndex = searchingForHorizontalIdenticalThrees(gameState);
+    selectedColumnIndex = searchingForHorizontalIdenticalThreesHard(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
@@ -64,7 +62,7 @@ export const AISelectColumnHard = gameState => {
       return selectedColumnIndex;
     }
 
-    selectedColumnIndex = searchingForHorizontalIdenticalTwos(gameState);
+    selectedColumnIndex = searchingForHorizontalIdenticalTwosHard(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }

@@ -1,58 +1,80 @@
-//note, it is medium because it doesn't pay attention to vertical coins, only pays attention to horizontal ones
+import { horizontalOne, verticalOne } from "./AIMethods/handlingOnes";
+import { searchingForHorizontalIdenticalThrees } from "./AIMethods/searchingForHorizontalIdenticalThrees/normal";
+import { searchingForHorizontalIdenticalTwos } from "./AIMethods/searchingForHorizontalIdenticalTwos/normal";
+import { searchingForVerticalIdenticalThrees } from "./AIMethods/searchingForVerticalIdenticalThrees";
+import { searchingForVerticalIdenticalTwos } from "./AIMethods/searchingForVerticalIdenticalTwos";
 
 export const AISelectColumnMedium = gameState => {
   console.log("hi, I am AISELECTCOLUMN medium");
 
+  //declaring main returned variable
   let selectedColumnIndex;
 
-  for (let i = 0; i <= 10; i++) {
-    for (let j = 0; j <= 5; j++) {
-      //first if (searching for identical horizontal threes)
-      if (
-        gameState[i] &&
-        gameState[i][j] &&
-        gameState[i][j + 1] &&
-        gameState[i][j + 2]
-      ) {
-        if (
-          gameState[i][j] == gameState[i][j + 1] &&
-          gameState[i][j] == gameState[i][j + 2]
-        ) {
-          if (!gameState[i][j + 3] && j + 3 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          } else if (!gameState[i][j - 1] && j - 1 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          }
-        }
-      }
+  //random boolean
+  const checkHorizontalFirst = Math.random() >= 0.5;
+  const checkVerticalFirst = !checkHorizontalFirst;
 
-      //second if (searching for identical horizontal twos)
-      if (gameState[i] && gameState[i][j] && gameState[i][j + 1]) {
-        if (gameState[i][j] == gameState[i][j + 1]) {
-          if (!this.gameState[i][j + 2] && j + 2 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          } else if (!gameState[i][j - 1] && j - 1 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          }
-        }
-      }
+  if (checkHorizontalFirst) {
+    selectedColumnIndex = searchingForHorizontalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
 
-      //third if (searching for single ones)
-      if (gameState[i] && gameState[i][j]) {
-        if (gameState[i][j]) {
-          if (!gameState[i][j + 1] && j + 1 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          } else if (!gameState[i][j - 1] && j - 1 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          }
-        }
-      }
+    selectedColumnIndex = searchingForVerticalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForHorizontalIdenticalTwos(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForVerticalIdenticalTwos(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = horizontalOne(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = verticalOne(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+  }
+
+  if (checkVerticalFirst) {
+    selectedColumnIndex = searchingForVerticalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForHorizontalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForVerticalIdenticalTwos(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForHorizontalIdenticalTwos(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = verticalOne(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = horizontalOne(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
     }
   }
 
