@@ -10,27 +10,6 @@ export const AISelectColumnHard = gameState => {
       //first if horizontal (searching for identical horizontal threes)
       if (
         gameState[i] &&
-        gameState[i][j] &&
-        gameState[i][j + 1] &&
-        gameState[i][j + 2]
-      ) {
-        if (
-          gameState[i][j] == gameState[i][j + 1] &&
-          gameState[i][j] == gameState[i][j + 2]
-        ) {
-          if (!gameState[i][j + 3] && j + 3 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          } else if (!gameState[i][j - 1] && j - 1 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          }
-        }
-      }
-
-      //first if vertical (searching for identical vertical threes)
-      if (
-        gameState[i] &&
         gameState[i + 1] &&
         gameState[i + 2] &&
         gameState[i][j] &&
@@ -42,9 +21,27 @@ export const AISelectColumnHard = gameState => {
           gameState[i][j] == gameState[i + 2][j]
         ) {
           if (!gameState[i + 3][j] && i + 3 <= 10) {
-            selectedColumnIndex = i;
+            selectedColumnIndex = i + 3;
             return selectedColumnIndex;
           } else if (!gameState[i - 1][j] && i - 1 <= 10) {
+            selectedColumnIndex = i - 1;
+            return selectedColumnIndex;
+          }
+        }
+      }
+
+      //first if vertical (searching for identical vertical threes)
+      if (
+        gameState[i] &&
+        gameState[i][j] &&
+        gameState[i][j + 1] &&
+        gameState[i][j + 2]
+      ) {
+        if (
+          gameState[i][j] == gameState[i][j + 1] &&
+          gameState[i][j] == gameState[i][j + 2]
+        ) {
+          if (!gameState[i][j + 3] && j + 3 <= 5) {
             selectedColumnIndex = i;
             return selectedColumnIndex;
           }
@@ -52,19 +49,6 @@ export const AISelectColumnHard = gameState => {
       }
 
       //second if horizontal (searching for identical horizontal twos)
-      if (gameState[i] && gameState[i][j] && gameState[i][j + 1]) {
-        if (gameState[i][j] == gameState[i][j + 1]) {
-          if (!this.gameState[i][j + 2] && j + 2 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          } else if (!gameState[i][j - 1] && j - 1 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          }
-        }
-      }
-
-      //second if vertical (searching for identical vertical twos)
       if (
         gameState[i] &&
         gameState[i + 1] &&
@@ -73,9 +57,19 @@ export const AISelectColumnHard = gameState => {
       ) {
         if (gameState[i][j] == gameState[i + 1][j]) {
           if (!this.gameState[i + 2][j] && i + 2 <= 10) {
-            selectedColumnIndex = i;
+            selectedColumnIndex = i + 2;
             return selectedColumnIndex;
           } else if (!gameState[i - 1][j] && i - 1 <= 10) {
+            selectedColumnIndex = i - 1;
+            return selectedColumnIndex;
+          }
+        }
+      }
+
+      //second if vertical (searching for identical vertical twos)
+      if (gameState[i] && gameState[i][j] && gameState[i][j + 1]) {
+        if (gameState[i][j] == gameState[i][j + 1]) {
+          if (!this.gameState[i][j + 2] && j + 2 <= 5) {
             selectedColumnIndex = i;
             return selectedColumnIndex;
           }
@@ -84,12 +78,12 @@ export const AISelectColumnHard = gameState => {
 
       //third if (searching for single ones horizontal)
       if (gameState[i] && gameState[i][j]) {
-        if (gameState[i][j]) {
-          if (!gameState[i][j + 1] && j + 1 <= 5) {
-            selectedColumnIndex = i;
+        if (gameState[i][j] == gameState[i + 1][j]) {
+          if (!gameState[i + 1][j] && i + 1 <= 10) {
+            selectedColumnIndex = i + 1;
             return selectedColumnIndex;
-          } else if (!gameState[i][j - 1] && j - 1 <= 5) {
-            selectedColumnIndex = i;
+          } else if (!gameState[i - 1][j] && i - 1 <= 10) {
+            selectedColumnIndex = i - 1;
             return selectedColumnIndex;
           }
         }
@@ -97,11 +91,8 @@ export const AISelectColumnHard = gameState => {
 
       //third if (searching for single ones vertical)
       if (gameState[i] && gameState[i][j]) {
-        if (gameState[i][j] == gameState[i + 1][j]) {
-          if (!gameState[i + 1][j] && i + 1 <= 10) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          } else if (!gameState[i - 1][j] && i - 1 <= 10) {
+        if (gameState[i][j]) {
+          if (!gameState[i][j + 1] && j + 1 <= 5) {
             selectedColumnIndex = i;
             return selectedColumnIndex;
           }
