@@ -1,103 +1,82 @@
+import { horizontalOne, verticalOne } from "./AIMethods/handlingOnes";
+import { searchingForHorizontalIdenticalThrees } from "./AIMethods/searchingForHorizontalIdenticalThrees";
+import { searchingForHorizontalIdenticalTwos } from "./AIMethods/searchingForHorizontalIdenticalTwos";
+import { searchingForVerticalIdenticalThrees } from "./AIMethods/searchingForVerticalIdenticalThrees";
+import { searchingForVerticalIdenticalTwos } from "./AIMethods/searchingForVerticalIdenticalTwos";
+
 //note, it is hard because it pays attention to both vertical coins and horizontal coins
 
 export const AISelectColumnHard = gameState => {
   console.log("hi, I am AISELECTCOLUMN hard");
 
+  //declaring main returned variable
   let selectedColumnIndex;
 
-  for (let i = 0; i <= 10; i++) {
-    for (let j = 0; j <= 5; j++) {
-      //first if horizontal (searching for identical horizontal threes)
-      if (
-        gameState[i] &&
-        gameState[i + 1] &&
-        gameState[i + 2] &&
-        gameState[i][j] &&
-        gameState[i + 1][j] &&
-        gameState[i + 2][j]
-      ) {
-        if (
-          gameState[i][j] == gameState[i + 1][j] &&
-          gameState[i][j] == gameState[i + 2][j]
-        ) {
-          if (!gameState[i + 3][j] && i + 3 <= 10) {
-            selectedColumnIndex = i + 3;
-            return selectedColumnIndex;
-          } else if (!gameState[i - 1][j] && i - 1 <= 10) {
-            selectedColumnIndex = i - 1;
-            return selectedColumnIndex;
-          }
-        }
-      }
+  //random boolean
+  const checkHorizontalFirst = Math.random() >= 0.5;
+  const checkVerticalFirst = !checkHorizontalFirst;
 
-      //first if vertical (searching for identical vertical threes)
-      if (
-        gameState[i] &&
-        gameState[i][j] &&
-        gameState[i][j + 1] &&
-        gameState[i][j + 2]
-      ) {
-        if (
-          gameState[i][j] == gameState[i][j + 1] &&
-          gameState[i][j] == gameState[i][j + 2]
-        ) {
-          if (!gameState[i][j + 3] && j + 3 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          }
-        }
-      }
+  if (checkHorizontalFirst) {
+    selectedColumnIndex = searchingForHorizontalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
 
-      //second if horizontal (searching for identical horizontal twos)
-      if (
-        gameState[i] &&
-        gameState[i + 1] &&
-        gameState[i][j] &&
-        gameState[i + 1][j]
-      ) {
-        if (gameState[i][j] == gameState[i + 1][j]) {
-          if (!this.gameState[i + 2][j] && i + 2 <= 10) {
-            selectedColumnIndex = i + 2;
-            return selectedColumnIndex;
-          } else if (!gameState[i - 1][j] && i - 1 <= 10) {
-            selectedColumnIndex = i - 1;
-            return selectedColumnIndex;
-          }
-        }
-      }
+    selectedColumnIndex = searchingForVerticalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
 
-      //second if vertical (searching for identical vertical twos)
-      if (gameState[i] && gameState[i][j] && gameState[i][j + 1]) {
-        if (gameState[i][j] == gameState[i][j + 1]) {
-          if (!this.gameState[i][j + 2] && j + 2 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          }
-        }
-      }
+    selectedColumnIndex = searchingForHorizontalIdenticalTwos(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
 
-      //third if (searching for single ones horizontal)
-      if (gameState[i] && gameState[i][j]) {
-        if (gameState[i][j] == gameState[i + 1][j]) {
-          if (!gameState[i + 1][j] && i + 1 <= 10) {
-            selectedColumnIndex = i + 1;
-            return selectedColumnIndex;
-          } else if (!gameState[i - 1][j] && i - 1 <= 10) {
-            selectedColumnIndex = i - 1;
-            return selectedColumnIndex;
-          }
-        }
-      }
+    selectedColumnIndex = searchingForVerticalIdenticalTwos(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
 
-      //third if (searching for single ones vertical)
-      if (gameState[i] && gameState[i][j]) {
-        if (gameState[i][j]) {
-          if (!gameState[i][j + 1] && j + 1 <= 5) {
-            selectedColumnIndex = i;
-            return selectedColumnIndex;
-          }
-        }
-      }
+    selectedColumnIndex = horizontalOne(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = verticalOne(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+  }
+
+  if (checkVerticalFirst) {
+    selectedColumnIndex = searchingForVerticalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForHorizontalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForVerticalIdenticalTwos(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForHorizontalIdenticalTwos(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = verticalOne(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = horizontalOne(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
     }
   }
 
