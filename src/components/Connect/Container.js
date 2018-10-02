@@ -59,6 +59,7 @@ class Container extends Component {
     }, 500);
 
     this.gameFinished = false;
+    this.someoneWon = false;
   }
 
   onColumnPress = (columnIndex, coinType) => {
@@ -102,7 +103,7 @@ class Container extends Component {
   checkWinningState = () => {
     let gameState = { ...this.state.columnsValues };
 
-    if (this.state.winner) {
+    if (this.state.winner || this.someoneWon) {
       return;
     }
 
@@ -120,6 +121,7 @@ class Container extends Component {
             gameState[i][j] == gameState[i][j + 2] &&
             gameState[i][j] == gameState[i][j + 3]
           ) {
+            this.someoneWon = true;
             this.setState(prevState => ({
               winner:
                 gameState[i][j] === "red" ? "player1" : this.state.secondPlayer,
@@ -154,6 +156,7 @@ class Container extends Component {
             gameState[i][j] == gameState[i + 2][j] &&
             gameState[i][j] == gameState[i + 3][j]
           ) {
+            this.someoneWon = true;
             this.setState(prevState => ({
               winner:
                 gameState[i][j] === "red" ? "player1" : this.state.secondPlayer,
@@ -196,6 +199,7 @@ class Container extends Component {
 
   onResetAndContinue = () => {
     this.gameFinished = false;
+    this.someoneWon = false;
 
     this.setState(() => ({
       resetFakeLoading: true,
@@ -226,6 +230,7 @@ class Container extends Component {
 
   onReset = () => {
     this.gameFinished = false;
+    this.someoneWon = false;
 
     this.setState(() => ({
       resetFakeLoading: true,
