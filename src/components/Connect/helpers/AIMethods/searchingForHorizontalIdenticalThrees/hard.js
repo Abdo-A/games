@@ -205,7 +205,7 @@ export const searchingForHorizontalIdenticalThreesHard = gameState => {
             i + 3 >= 0 &&
             !gameState[i + 3][j]
           ) {
-            console.log("horizontal threes 5");
+            console.log("horizontal threes 7");
 
             selectedColumnIndex = i + 3;
             return selectedColumnIndex;
@@ -234,7 +234,7 @@ export const searchingForHorizontalIdenticalThreesHard = gameState => {
             i - 1 >= 0 &&
             !gameState[i - 1][j]
           ) {
-            console.log("horizontal threes 6");
+            console.log("horizontal threes 8");
 
             selectedColumnIndex = i - 1;
             return selectedColumnIndex;

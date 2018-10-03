@@ -1,5 +1,7 @@
-import React, { Component } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
+import React, { Component } from "react";
+
+import Header from "../../components/Header";
 
 export default class Start extends Component {
   goToTic = () => {
@@ -13,6 +15,9 @@ export default class Start extends Component {
   render() {
     return (
       <View style={styles.root}>
+        <View>
+          <Header>Games</Header>
+        </View>
         <View style={styles.buttonContainer}>
           <Button title="Tic Tac Toe" onPress={this.goToTic} />
         </View>
