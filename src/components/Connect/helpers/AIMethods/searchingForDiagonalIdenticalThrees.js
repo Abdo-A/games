@@ -42,8 +42,8 @@ export const searchingForDiagonalIdenticalThrees = gameState => {
         gameState[i - 2][j + 2]
       ) {
         if (
-          gameState[i][j] == gameState[i + 1][j + 1] &&
-          gameState[i][j] == gameState[i + 2][j + 2]
+          gameState[i][j] == gameState[i - 1][j + 1] &&
+          gameState[i][j] == gameState[i - 2][j + 2]
         ) {
           if (
             j + 3 <= 5 &&

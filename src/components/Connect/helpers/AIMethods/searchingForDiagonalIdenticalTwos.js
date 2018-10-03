@@ -42,7 +42,7 @@ export const searchingForDiagonalIdenticalTwos = gameState => {
             !gameState[i - 2][j + 2] &&
             gameState[i - 2][j + 1]
           ) {
-            console.log("diagonal ascending right twos");
+            console.log("diagonal ascending left twos");
             selectedColumnIndex = i - 2;
             return selectedColumnIndex;
           }
