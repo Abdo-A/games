@@ -216,7 +216,7 @@ class Container extends Component {
         this.setState(() => ({
           gameFinished: true
         }));
-      }, 400);
+      }, 1000);
     } else {
       this.board.rubberBand(2000).then(() => {
         this.board.lightSpeedOut(500).then(() => {
