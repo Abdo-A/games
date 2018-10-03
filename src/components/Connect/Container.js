@@ -303,6 +303,16 @@ class Container extends Component {
         break;
     }
 
+    if (this.state.columnsValues[selectedColumnId].length >= 6) {
+      selectedColumnId =
+        Math.floor(Math.random() * (10 /*max*/ - 0 /*min*/ + 1)) + 0 /*min*/;
+    }
+
+    if (this.state.columnsValues[selectedColumnId].length >= 6) {
+      selectedColumnId =
+        Math.floor(Math.random() * (10 /*max*/ - 0 /*min*/ + 1)) + 0 /*min*/;
+    }
+
     this.setState(
       () => ({
         selectedColumnIdByComputer: selectedColumnId

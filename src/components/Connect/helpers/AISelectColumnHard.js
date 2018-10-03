@@ -67,12 +67,12 @@ export const AISelectColumnHard = gameState => {
       return selectedColumnIndex;
     }
 
-    selectedColumnIndex = verticalOne(gameState);
+    selectedColumnIndex = horizontalOne(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
 
-    selectedColumnIndex = horizontalOne(gameState);
+    selectedColumnIndex = verticalOne(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
