@@ -44,7 +44,8 @@ class Container extends Component {
     awaitingChoosingComputerDifficulty: false,
     selectedColumnIdByComputer: null,
     computerPlaysNow: false,
-    computerDifficulty: null //easy, medium, hard
+    computerDifficulty: null, //easy, medium, hard,
+    drawState: false
   };
 
   componentDidMount() {
@@ -68,6 +69,8 @@ class Container extends Component {
     this.setCurrentPlayer();
 
     this.checkWinningState();
+
+    this.checkDraw();
   };
 
   setColumnsValues = (columnIndex, coinType) => {
@@ -197,6 +200,22 @@ class Container extends Component {
     }
   };
 
+  checkDraw = () => {
+    if (this.state.gameFinished || this.gameFinished) {
+      return;
+    }
+
+    for (let i = 0; i <= 10; i++) {
+      if (this.state.columnsValues[i].length !== 6) {
+        return;
+      }
+    }
+
+    this.setState(() => ({
+      drawState: true
+    }));
+  };
+
   onResetAndContinue = () => {
     this.gameFinished = false;
     this.someoneWon = false;
@@ -218,7 +237,8 @@ class Container extends Component {
       },
       currentPlayer: "player1",
       winner: null,
-      gameFinished: false
+      gameFinished: false,
+      drawState: false
     }));
 
     setTimeout(() => {
@@ -250,6 +270,7 @@ class Container extends Component {
       currentPlayer: "player1",
       winner: null,
       gameFinished: false,
+      drawState: false,
       awaitingChoosingOpponent: true,
       secondPlayer: null
     }));
@@ -406,6 +427,25 @@ class Container extends Component {
           <Text style={styles.winnerAnnouncement}>
             {this.state.winner} won!
           </Text>
+          <View style={{ marginBottom: 30 }}>
+            <Button title="Play again" onPress={this.onResetAndContinue} />
+          </View>
+          <View style={{ marginBottom: 30 }}>
+            <Button title="Main Menu" onPress={this.onReset} />
+          </View>
+          <Button
+            title="Play a differnt game"
+            onPress={() => this.props.goToHome()}
+          />
+        </View>
+      );
+    }
+
+    //handle if draw
+    if (this.state.drawState) {
+      return (
+        <View>
+          <Text style={styles.winnerAnnouncement}>Draw! :(</Text>
           <View style={{ marginBottom: 30 }}>
             <Button title="Play again" onPress={this.onResetAndContinue} />
           </View>
