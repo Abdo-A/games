@@ -112,6 +112,7 @@ class Container extends Component {
 
     for (let i = 0; i <= 10; i++) {
       for (let j = 0; j <= 5; j++) {
+        //checking vertically
         if (
           gameState[i] &&
           gameState[i][j] &&
@@ -124,26 +125,11 @@ class Container extends Component {
             gameState[i][j] == gameState[i][j + 2] &&
             gameState[i][j] == gameState[i][j + 3]
           ) {
-            this.someoneWon = true;
-            this.setState(prevState => ({
-              winner:
-                gameState[i][j] === "red" ? "player1" : this.state.secondPlayer,
-              firstPlayerScore:
-                gameState[i][j] === "red"
-                  ? prevState.firstPlayerScore + 1
-                  : prevState.firstPlayerScore,
-              secondPlayerScore:
-                gameState[i][j] === "blue"
-                  ? prevState.secondPlayerScore + 1
-                  : prevState.secondPlayerScore
-            }));
-            this.onWinning(
-              gameState[i][j] === "red" ? "player1" : this.state.secondPlayer
-            );
-            this.gameFinished = true;
+            this.onWinning(gameState[i][j]);
           }
         }
 
+        //checking horizontally
         if (
           gameState[i] &&
           gameState[i + 1] &&
@@ -159,30 +145,72 @@ class Container extends Component {
             gameState[i][j] == gameState[i + 2][j] &&
             gameState[i][j] == gameState[i + 3][j]
           ) {
-            this.someoneWon = true;
-            this.setState(prevState => ({
-              winner:
-                gameState[i][j] === "red" ? "player1" : this.state.secondPlayer,
-              firstPlayerScore:
-                gameState[i][j] === "red"
-                  ? prevState.firstPlayerScore + 1
-                  : prevState.firstPlayerScore,
-              secondPlayerScore:
-                gameState[i][j] === "blue"
-                  ? prevState.secondPlayerScore + 1
-                  : prevState.secondPlayerScore
-            }));
-            this.onWinning(
-              gameState[i][j] === "red" ? "player1" : this.state.secondPlayer
-            );
-            this.gameFinished = true;
+            this.onWinning(gameState[i][j]);
+          }
+        }
+
+        //checking diagonal ascending right
+        if (
+          gameState[i] &&
+          gameState[i + 1] &&
+          gameState[i + 2] &&
+          gameState[i + 3] &&
+          gameState[i][j] &&
+          gameState[i + 1][j + 1] &&
+          gameState[i + 2][j + 2] &&
+          gameState[i + 3][j + 3]
+        ) {
+          if (
+            gameState[i][j] == gameState[i + 1][j + 1] &&
+            gameState[i][j] == gameState[i + 2][j + 2] &&
+            gameState[i][j] == gameState[i + 3][j + 3]
+          ) {
+            this.onWinning(gameState[i][j]);
+          }
+        }
+
+        //checking diagonal ascending left
+        if (
+          gameState[i] &&
+          gameState[i - 1] &&
+          gameState[i - 2] &&
+          gameState[i - 3] &&
+          gameState[i][j] &&
+          gameState[i - 1][j + 1] &&
+          gameState[i - 2][j + 2] &&
+          gameState[i - 3][j + 3]
+        ) {
+          if (
+            gameState[i][j] == gameState[i - 1][j + 1] &&
+            gameState[i][j] == gameState[i - 2][j + 2] &&
+            gameState[i][j] == gameState[i - 3][j + 3]
+          ) {
+            this.onWinning(gameState[i][j]);
           }
         }
       }
     }
   };
 
-  onWinning = winner => {
+  onWinning = winnerColor => {
+    const winner = winnerColor === "red" ? "player1" : this.state.secondPlayer;
+
+    this.gameFinished = true;
+
+    this.someoneWon = true;
+
+    this.setState(prevState => ({
+      winner: winnerColor === "red" ? "player1" : this.state.secondPlayer,
+      firstPlayerScore:
+        winnerColor === "red"
+          ? prevState.firstPlayerScore + 1
+          : prevState.firstPlayerScore,
+      secondPlayerScore:
+        winnerColor === "blue"
+          ? prevState.secondPlayerScore + 1
+          : prevState.secondPlayerScore
+    }));
+
     if (winner === "computer") {
       setTimeout(() => {
         this.setState(() => ({
