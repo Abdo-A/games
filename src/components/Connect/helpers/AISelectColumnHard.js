@@ -1,4 +1,6 @@
 import { horizontalOne, verticalOne } from "./AIMethods/handlingOnes";
+import { searchingForDiagonalIdenticalThrees } from "./AIMethods/searchingForDiagonalIdenticalThrees";
+import { searchingForDiagonalIdenticalTwos } from "./AIMethods/searchingForDiagonalIdenticalTwos";
 import { searchingForHorizontalIdenticalThreesHard } from "./AIMethods/searchingForHorizontalIdenticalThrees/hard";
 import { searchingForHorizontalIdenticalTwosHard } from "./AIMethods/searchingForHorizontalIdenticalTwos/hard";
 import { searchingForVerticalIdenticalThrees } from "./AIMethods/searchingForVerticalIdenticalThrees";
@@ -15,12 +17,22 @@ export const AISelectColumnHard = gameState => {
   const checkVerticalFirst = !checkHorizontalFirst;
 
   if (checkHorizontalFirst) {
+    selectedColumnIndex = searchingForDiagonalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
     selectedColumnIndex = searchingForHorizontalIdenticalThreesHard(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
 
     selectedColumnIndex = searchingForVerticalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForDiagonalIdenticalTwos(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
@@ -47,12 +59,22 @@ export const AISelectColumnHard = gameState => {
   }
 
   if (checkVerticalFirst) {
+    selectedColumnIndex = searchingForDiagonalIdenticalThrees(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
     selectedColumnIndex = searchingForVerticalIdenticalThrees(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
 
     selectedColumnIndex = searchingForHorizontalIdenticalThreesHard(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForDiagonalIdenticalTwos(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
