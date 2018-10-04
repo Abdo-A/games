@@ -149,7 +149,15 @@ class Column extends Component {
                 duration={700}
                 key={coin.key}
               >
-                <MaterialIcons name="cancel" size={45} color={coin.color} />
+                <MaterialIcons
+                  name={
+                    coin.color === "red"
+                      ? this.props.firstPlayerIconName
+                      : this.props.secondPlayerIconName
+                  }
+                  size={45}
+                  color={coin.color}
+                />
               </Animatable.View>
             );
           })}

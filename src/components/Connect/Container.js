@@ -45,10 +45,14 @@ class Container extends Component {
     selectedColumnIdByComputer: null,
     computerPlaysNow: false,
     computerDifficulty: null, //easy, medium, hard,
-    drawState: false
+    drawState: false,
+    firstPlayerIconName: "cancel", //from material icons
+    secondPlayerIconName: "cancel" //from material icons
   };
 
   componentDidMount() {
+    this.decideRandomCoinIcons();
+
     this.setState(() => ({
       initialFakeLoading: true
     }));
@@ -211,7 +215,7 @@ class Container extends Component {
             ? prevState.secondPlayerScore + 1
             : prevState.secondPlayerScore
       }));
-    }, 500);
+    }, 800);
 
     if (winner === "computer") {
       setTimeout(() => {
@@ -246,9 +250,44 @@ class Container extends Component {
     }));
   };
 
+  decideRandomCoinIcons = () => {
+    const iconsNames = [
+      "cancel",
+      "explore",
+      "favorite",
+      "face",
+      "group-work",
+      "watch-later",
+      "pan-tool",
+      "play-circle-filled",
+      "pause-circle-filled",
+      "monetization-on",
+      "cloud-circle",
+      "monetization-on",
+      "directions-subway",
+      "wb-incandescent",
+      "mood",
+      "mood-bad",
+      "wc",
+      "local-shipping"
+    ];
+
+    let random1 =
+      Math.floor(Math.random() * (iconsNames.length - 1 - 0 + 1)) + 0;
+    let random2 =
+      Math.floor(Math.random() * (iconsNames.length - 1 - 0 + 1)) + 0;
+
+    this.setState(() => ({
+      firstPlayerIconName: iconsNames[random1],
+      secondPlayerIconName: iconsNames[random2]
+    }));
+  };
+
   onResetAndContinue = () => {
     this.gameFinished = false;
     this.someoneWon = false;
+
+    this.decideRandomCoinIcons();
 
     this.setState(() => ({
       resetFakeLoading: true,
@@ -281,6 +320,8 @@ class Container extends Component {
   onReset = () => {
     this.gameFinished = false;
     this.someoneWon = false;
+
+    this.decideRandomCoinIcons();
 
     this.setState(() => ({
       resetFakeLoading: true,
@@ -505,12 +546,28 @@ class Container extends Component {
                 ? "Player 1"
                 : this.state.firstPlayer}{" "}
             </Text>
-            <MaterialIcons name="cancel" size={20} color="red" />
+            <MaterialIcons
+              name={this.state.firstPlayerIconName}
+              size={20}
+              color="red"
+            />
             <Text style={styles.score}> [{this.state.firstPlayerScore}]</Text>
-            {player1Turn && <Text> (Your Turn)</Text>}
+            {/*{player1Turn && <Text> (Your Turn)</Text>}*/}
           </View>
+          <View>
+            <MaterialIcons
+              name={
+                this.state.currentPlayer === "player1"
+                  ? this.state.firstPlayerIconName
+                  : this.state.secondPlayerIconName
+              }
+              size={45}
+              color={this.state.currentPlayer === "player1" ? "red" : "blue"}
+            />
+          </View>
+
           <View style={styles.playerNotation}>
-            {!player1Turn && <Text>(Your Turn) </Text>}
+            {/*{!player1Turn && <Text> (Your Turn)</Text>}*/}
             <Text
               style={{
                 fontWeight: player1Turn ? "normal" : "bold"
@@ -522,7 +579,11 @@ class Container extends Component {
                   ? "Computer"
                   : this.state.secondPlayer}{" "}
             </Text>
-            <MaterialIcons name="cancel" size={20} color="blue" />
+            <MaterialIcons
+              name={this.state.secondPlayerIconName}
+              size={20}
+              color="blue"
+            />
             <Text style={styles.score}> [{this.state.secondPlayerScore}]</Text>
           </View>
         </View>
@@ -544,6 +605,8 @@ class Container extends Component {
               currentPlayer={this.state.currentPlayer}
               gameFinished={this.state.gameFinished}
               gameFinishedIndicator={this.gameFinished}
+              firstPlayerIconName={this.state.firstPlayerIconName}
+              secondPlayerIconName={this.state.secondPlayerIconName}
             />
           ))}
         </Animatable.View>
