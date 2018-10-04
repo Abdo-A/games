@@ -32,17 +32,17 @@ export const AISelectColumnHard = gameState => {
       return selectedColumnIndex;
     }
 
-    selectedColumnIndex = searchingForDiagonalIdenticalTwos(gameState);
-    if (selectedColumnIndex !== null) {
-      return selectedColumnIndex;
-    }
-
     selectedColumnIndex = searchingForHorizontalIdenticalTwosHard(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
 
     selectedColumnIndex = searchingForVerticalIdenticalTwos(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForDiagonalIdenticalTwos(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
@@ -74,17 +74,17 @@ export const AISelectColumnHard = gameState => {
       return selectedColumnIndex;
     }
 
-    selectedColumnIndex = searchingForDiagonalIdenticalTwos(gameState);
-    if (selectedColumnIndex !== null) {
-      return selectedColumnIndex;
-    }
-
     selectedColumnIndex = searchingForVerticalIdenticalTwos(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }
 
     selectedColumnIndex = searchingForHorizontalIdenticalTwosHard(gameState);
+    if (selectedColumnIndex !== null) {
+      return selectedColumnIndex;
+    }
+
+    selectedColumnIndex = searchingForDiagonalIdenticalTwos(gameState);
     if (selectedColumnIndex !== null) {
       return selectedColumnIndex;
     }

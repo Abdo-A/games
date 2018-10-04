@@ -14,6 +14,7 @@ export const searchingForHorizontalIdenticalTwosHard = gameState => {
             i + 2 >= 0 &&
             gameState[i + 2] &&
             !gameState[i + 2][j] &&
+            (j - 1 >= 0 && j - 1 <= 5 ? gameState[i + 2][j - 1] : true) &&
             gameState[i + 3] &&
             gameState[i + 3][j] === gameState[i][j]
           ) {
@@ -41,6 +42,7 @@ export const searchingForHorizontalIdenticalTwosHard = gameState => {
             i - 1 <= 10 &&
             i - 1 >= 0 &&
             !gameState[i - 1][j] &&
+            (j - 1 >= 0 && j - 1 <= 5 ? gameState[i - 1][j - 1] : true) &&
             gameState[i - 2] &&
             gameState[i - 2][j] === gameState[i][j]
           ) {
@@ -67,9 +69,12 @@ export const searchingForHorizontalIdenticalTwosHard = gameState => {
             /* case 3: $$__$ */
             i + 2 <= 10 &&
             i + 2 >= 0 &&
+            gameState[i + 2] &&
             !gameState[i + 2][j] &&
             gameState[i + 3] &&
             !gameState[i + 3][j] &&
+            (j - 1 >= 0 && j - 1 <= 5 ? gameState[i + 2][j - 1] : true) &&
+            (j - 1 >= 0 && j - 1 <= 5 ? gameState[i + 3][j - 1] : true) &&
             gameState[i + 4] &&
             gameState[i + 4][j] === gameState[i][j]
           ) {
@@ -96,9 +101,12 @@ export const searchingForHorizontalIdenticalTwosHard = gameState => {
             /* case 4: $__$$ */
             i - 1 <= 10 &&
             i - 1 >= 0 &&
+            gameState[i - 1] &&
             !gameState[i - 1][j] &&
             gameState[i - 2] &&
             !gameState[i - 2][j] &&
+            (j - 1 >= 0 && j - 1 <= 5 ? gameState[i - 1][j - 1] : true) &&
+            (j - 1 >= 0 && j - 1 <= 5 ? gameState[i - 2][j - 1] : true) &&
             gameState[i - 3] &&
             gameState[i - 3][j] === gameState[i][j]
           ) {

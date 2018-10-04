@@ -1,5 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import * as Animatable from "react-native-animatable";
 import React, { Component } from "react";
 
 class Column extends Component {
@@ -49,7 +50,8 @@ class Column extends Component {
       let coins = [...this.state.coins];
 
       coins.unshift({
-        color: this.props.currentPlayer === "player1" ? "red" : "blue"
+        color: this.props.currentPlayer === "player1" ? "red" : "blue",
+        key: Math.random()
       });
 
       this.setState(
@@ -141,12 +143,14 @@ class Column extends Component {
 
           {this.state.coins.map((coin, i) => {
             return (
-              <MaterialIcons
-                key={i}
-                name="cancel"
-                size={45}
-                color={coin.color}
-              />
+              <Animatable.View
+                animation="fadeInDownBig"
+                easing="ease-in"
+                duration={700}
+                key={coin.key}
+              >
+                <MaterialIcons name="cancel" size={45} color={coin.color} />
+              </Animatable.View>
             );
           })}
         </View>

@@ -199,24 +199,26 @@ class Container extends Component {
 
     this.someoneWon = true;
 
-    this.setState(prevState => ({
-      winner: winnerColor === "red" ? "player1" : this.state.secondPlayer,
-      firstPlayerScore:
-        winnerColor === "red"
-          ? prevState.firstPlayerScore + 1
-          : prevState.firstPlayerScore,
-      secondPlayerScore:
-        winnerColor === "blue"
-          ? prevState.secondPlayerScore + 1
-          : prevState.secondPlayerScore
-    }));
+    setTimeout(() => {
+      this.setState(prevState => ({
+        winner: winnerColor === "red" ? "player1" : this.state.secondPlayer,
+        firstPlayerScore:
+          winnerColor === "red"
+            ? prevState.firstPlayerScore + 1
+            : prevState.firstPlayerScore,
+        secondPlayerScore:
+          winnerColor === "blue"
+            ? prevState.secondPlayerScore + 1
+            : prevState.secondPlayerScore
+      }));
+    }, 500);
 
     if (winner === "computer") {
       setTimeout(() => {
         this.setState(() => ({
           gameFinished: true
         }));
-      }, 1000);
+      }, 3000);
     } else {
       this.board.rubberBand(2000).then(() => {
         this.board.lightSpeedOut(500).then(() => {
@@ -348,7 +350,7 @@ class Container extends Component {
         break;
 
       default:
-        selectedColumnId = AISelectColumnEasy(this.state.columnsValues);
+        selectedColumnId = AISelectColumnHard(this.state.columnsValues);
         break;
     }
 
@@ -371,13 +373,13 @@ class Container extends Component {
           this.setState(() => ({
             computerPlaysNow: true
           }));
-        }, 1000);
+        }, 800);
 
         setTimeout(() => {
           this.setState(() => ({
             computerPlaysNow: false
           }));
-        }, 1200);
+        }, 1000);
       }
     );
   };
@@ -526,7 +528,8 @@ class Container extends Component {
         </View>
         <Animatable.View
           style={styles.board}
-          animation="zoomIn"
+          //animation="zoomIn"
+          animation={this.state.winner === "computer" ? "rubberBand" : "zoomIn"}
           ref={ref => {
             this.board = ref;
           }}
