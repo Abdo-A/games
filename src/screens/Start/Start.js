@@ -12,17 +12,27 @@ export default class Start extends Component {
     this.props.history.push("/connect4");
   };
 
+  goToDomino = () => {
+    this.props.history.push("/domino");
+  };
+
   render() {
     return (
       <View style={styles.root}>
         <View>
           <Header>Games</Header>
         </View>
+
         <View style={styles.buttonContainer}>
           <Button title="Tic Tac Toe" onPress={this.goToTic} />
         </View>
+
         <View style={styles.buttonContainer}>
           <Button title="Connect Four" onPress={this.goToConnect} />
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <Button title="Domino" onPress={this.goToDomino} />
         </View>
       </View>
     );
