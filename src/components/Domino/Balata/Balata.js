@@ -22,8 +22,21 @@ export default class Balata extends Component {
   render() {
     return (
       <View>
-        <Draggable onDragRelease={this.onDragRelease}>
-          <View style={styles.root}>
+        <Draggable
+          onDragRelease={this.onDragRelease}
+          containerStyle={styles.container}
+        >
+          <View
+            style={[
+              styles.balata,
+              {
+                width: this.props.orientation === "horizontal" ? 60 : 30,
+                height: this.props.orientation === "horizontal" ? 30 : 60,
+                flexDirection:
+                  this.props.orientation === "horizontal" ? "row" : "column"
+              }
+            ]}
+          >
             <NosBalata dots={this.props.dots[0]} />
             <NosBalata dots={this.props.dots[1]} />
           </View>
@@ -34,13 +47,13 @@ export default class Balata extends Component {
 }
 
 const styles = StyleSheet.create({
-  root: {
+  container: {
     borderColor: "black",
-    borderWidth: 2,
     borderRadius: 5,
+    borderWidth: 2
+  },
+  balata: {
     padding: 0,
-    width: 30,
-    height: 60,
     alignItems: "center"
   }
 });

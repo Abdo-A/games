@@ -1,7 +1,8 @@
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React, { Component } from "react";
 
 import Balata from "../Balata/Balata";
+import GroundBalatasArranger from "../BalatasArranger/GroundBalatasArranger.js/GroundBalatasArranger";
 
 export default class Container extends Component {
   state = {
@@ -22,17 +23,26 @@ export default class Container extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={styles.root}>
         <View
           ref={ref => (this.love = ref)}
           style={{ backgroundColor: "tomato", width: 50, height: 50 }}
         />
 
+        <GroundBalatasArranger />
+
         <Balata dots={[0, 0]} />
-        <Balata dots={[1, 2]} />
-        <Balata dots={[3, 4]} />
-        <Balata dots={[5, 6]} />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "100%",
+    width: "100%"
+  }
+});

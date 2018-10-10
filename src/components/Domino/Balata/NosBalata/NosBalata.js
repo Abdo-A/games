@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
   root: {
     borderColor: "black",
     borderWidth: 1,
-    width: "100%",
-    height: "50%",
+    width: 30,
+    height: 30,
     flexDirection: "row",
     backgroundColor: "#cecece",
     alignContent: "space-around"
