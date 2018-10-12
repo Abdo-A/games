@@ -1,10 +1,12 @@
+import { connect } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Button, StyleSheet, ScrollView } from "react-native";
 import React, { Component } from "react";
 
+import * as dominoActions from "../../../../store/actions/dominoActions";
 import Balata from "../../Balata/Balata";
 
-export default class GroundBalatasArranger extends Component {
+class GroundBalatasArranger extends Component {
   state = {
     balatas: [],
     firstBalata: {
@@ -20,61 +22,6 @@ export default class GroundBalatasArranger extends Component {
       Y: null
     },
     aBalataIsNear: false
-  };
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.initialPositionRef.measure((fx, fy, width, height, px, py) => {
-        console.log(px, py);
-        this.setState(() => ({
-          firstBalata: {
-            id: null,
-            dots: [],
-            X: px,
-            Y: py
-          },
-          lastBalata: {
-            id: null,
-            dots: [],
-            X: px,
-            Y: py
-          }
-        }));
-      });
-    }, 200);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(this.state.firstBalata.X);
-    console.log(this.state.firstBalata.Y);
-    if (
-      nextProps.draggedBalata &&
-      ((Math.abs(nextProps.draggedBalata.X - this.state.firstBalata.X) < 50 &&
-        Math.abs(nextProps.draggedBalata.Y - this.state.firstBalata.Y) < 20) ||
-        (Math.abs(nextProps.draggedBalata.X - this.state.lastBalata.X) < 50 &&
-          Math.abs(nextProps.draggedBalata.Y - this.state.lastBalata.Y) < 20))
-    ) {
-      this.dealWithaNearbyDraggedBalata(nextProps.draggedBalata);
-      this.setState(() => ({
-        aBalataIsNear: true
-      }));
-    } else {
-      this.setState(() => ({
-        aBalataIsNear: false
-      }));
-    }
-  }
-
-  dealWithaNearbyDraggedBalata = nearbyBalata => {
-    console.log("I am inside");
-    if (this.state.balatas.length === 0) {
-      let balatas = [...this.state.balatas];
-
-      balatas.push(nearbyBalata);
-      this.setState(() => ({
-        balatas: balatas
-      }));
-    }
   };
 
   addBalata = () => {
@@ -93,30 +40,43 @@ export default class GroundBalatasArranger extends Component {
   getFirstBalataMeasure = (id, dots, px, py) => {
     // console.log("first balata X", px);
     // console.log("first balata Y", py);
-    console.log("first balata dots: ", dots);
-    this.setState(() => ({
-      firstBalata: {
-        id: id,
-        dots: dots,
-        X: px,
-        Y: py
-      }
-    }));
+    // console.log("first balata dots: ", dots);
+    // this.setState(() => ({
+    //   firstBalata: {
+    //     id: id,
+    //     dots: dots,
+    //     X: px,
+    //     Y: py
+    //   }
+    // }));
+    this.props.setFirstGroundBalata({
+      id: id,
+      dots: dots,
+      X: px,
+      Y: py
+    });
   };
 
   getLastBalataMeasure = (id, dots, px, py) => {
     // console.log("last balata X", px);
     // console.log("last balata Y", py);
-    console.log("last balata dots: ", dots);
+    // console.log("last balata dots: ", dots);
 
-    this.setState(() => ({
-      lastBalata: {
-        id: id,
-        dots: dots,
-        X: px,
-        Y: py
-      }
-    }));
+    // this.setState(() => ({
+    //   lastBalata: {
+    //     id: id,
+    //     dots: dots,
+    //     X: px,
+    //     Y: py
+    //   }
+    // }));
+
+    this.props.setLastGroundBalata({
+      id: id,
+      dots: dots,
+      X: px,
+      Y: py
+    });
   };
 
   render() {
@@ -130,8 +90,8 @@ export default class GroundBalatasArranger extends Component {
             paddingRight: "40%"
           }}
         >
-          {this.state.balatas.length >= 1 ? (
-            this.state.balatas.map((balata, i) => {
+          {this.props.groundBalatas && this.props.groundBalatas.length >= 1 ? (
+            this.props.groundBalatas.map((balata, i) => {
               return (
                 <Balata
                   dots={balata.dots}
@@ -141,13 +101,15 @@ export default class GroundBalatasArranger extends Component {
                   getMeasure={
                     i === 0
                       ? this.getFirstBalataMeasure
-                      : this.getLastBalataMeasure
+                      : i === this.props.groundBalatas.length - 1
+                        ? this.getLastBalataMeasure
+                        : () => {}
                   }
                 />
               );
             })
           ) : (
-            <View ref={ref => (this.initialPositionRef = ref)}>
+            <View>
               <MaterialIcons
                 name="radio-button-unchecked"
                 size={25}
@@ -176,3 +138,23 @@ const styles = StyleSheet.create({
     borderColor: "brown"
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    groundBalatas: state.domino.groundBalatas,
+    firstGroundBalata: state.domino.firstGroundBalata,
+    lastGroundBalata: state.domino.lastGroundBalata,
+    draggedBalata: state.domino.draggedBalata
+  };
+};
+
+const mapDispatchToProps = {
+  makeAllBalatasBelongToGround: dominoActions.makeAllBalatasBelongToGround,
+  setFirstGroundBalata: dominoActions.setFirstGroundBalata,
+  setLastGroundBalata: dominoActions.setLastGroundBalata
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GroundBalatasArranger);

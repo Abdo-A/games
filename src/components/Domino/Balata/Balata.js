@@ -62,7 +62,9 @@ export default class Balata extends Component {
     if (this.props.draggable) {
       return (
         <View>
-          <Draggable>{balataBody}</Draggable>
+          <Draggable onDragRelease={this.props.onDragRelease}>
+            {balataBody}
+          </Draggable>
         </View>
       );
     } else {
