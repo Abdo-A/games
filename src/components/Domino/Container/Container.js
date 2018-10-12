@@ -6,32 +6,47 @@ import GroundBalatasArranger from "../BalatasArranger/GroundBalatasArranger.js/G
 
 export default class Container extends Component {
   state = {
-    draggedBalataId: null,
-    draggedBalataFinalX: null,
-    draggedBalataFinalY: null
+    draggedBalata: {
+      id: null,
+      X: null,
+      Y: null
+    }
   };
 
-  componentDidMount() {
-    this.love.measure((fx, fy, width, height, px, py) => {
-      console.log("Component width is: " + width);
-      console.log("Component height is: " + height);
-      console.log("X offset to frame: " + fx);
-      console.log("Y offset to frame: " + fy);
-      console.log("X offset to page: " + px);
-      console.log("Y offset to page: " + py);
-    });
-  }
+  getDraggedBalata = (id, px, py) => {
+    if (
+      this.state.draggedBalataId !== id ||
+      this.state.draggedBalataFinalX !== px ||
+      this.state.draggedBalataFinalY !== py
+    ) {
+      this.setState(() => ({
+        draggedBalata: {
+          id: id,
+          X: px,
+          Y: py
+        }
+      }));
+      console.log("dragged Balata Id:", id);
+      console.log("dragged Balata X:", px);
+      console.log("dragged Balata Y:", py);
+    }
+  };
+
   render() {
     return (
       <View style={styles.root}>
-        <View
-          ref={ref => (this.love = ref)}
-          style={{ backgroundColor: "tomato", width: 50, height: 50 }}
-        />
+        <View style={{ backgroundColor: "tomato", width: 50, height: 50 }} />
 
-        <GroundBalatasArranger />
+        <GroundBalatasArranger draggedBalata={this.state.draggedBalata} />
 
-        <Balata dots={[0, 0]} />
+        <View style={{ flexDirection: "row" }}>
+          <Balata dots={[0, 0]} draggable getMeasure={this.getDraggedBalata} />
+          <Balata dots={[1, 4]} draggable getMeasure={this.getDraggedBalata} />
+          <Balata dots={[2, 6]} draggable getMeasure={this.getDraggedBalata} />
+          <Balata dots={[2, 1]} draggable getMeasure={this.getDraggedBalata} />
+          <Balata dots={[0, 3]} draggable getMeasure={this.getDraggedBalata} />
+          <Balata dots={[0, 4]} draggable getMeasure={this.getDraggedBalata} />
+        </View>
       </View>
     );
   }
