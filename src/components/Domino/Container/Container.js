@@ -8,12 +8,13 @@ export default class Container extends Component {
   state = {
     draggedBalata: {
       id: null,
+      dots: [],
       X: null,
       Y: null
     }
   };
 
-  getDraggedBalata = (id, px, py) => {
+  getDraggedBalata = (id, dots, px, py) => {
     if (
       this.state.draggedBalataId !== id ||
       this.state.draggedBalataFinalX !== px ||
@@ -22,13 +23,15 @@ export default class Container extends Component {
       this.setState(() => ({
         draggedBalata: {
           id: id,
+          dots: dots,
           X: px,
           Y: py
         }
       }));
-      console.log("dragged Balata Id:", id);
-      console.log("dragged Balata X:", px);
-      console.log("dragged Balata Y:", py);
+      // console.log("dragged Balata Id:", id);
+      // console.log("dragged Balata X:", px);
+      // console.log("dragged Balata Y:", py);
+      console.log("Dragged balata dots:", dots);
     }
   };
 

@@ -7,19 +7,38 @@ import Balata from "../../Balata/Balata";
 export default class GroundBalatasArranger extends Component {
   state = {
     balatas: [],
-    firstBalataX: null,
-    firstBalataY: null,
-    lastBalataX: null,
-    lastBalataY: null
+    firstBalata: {
+      id: null,
+      dots: [],
+      X: null,
+      Y: null
+    },
+    lastBalata: {
+      id: null,
+      dots: [],
+      X: null,
+      Y: null
+    },
+    aBalataIsNear: false
   };
 
   static getDerivedStateFromProps(props, state) {
     if (
       props.draggedBalata &&
-      Math.abs(props.draggedBalata.X - state.firstBalataX) < 50 &&
-      Math.abs(props.draggedBalata.Y - state.firstBalataY) < 20
+      ((Math.abs(props.draggedBalata.X - state.firstBalata.X) < 50 &&
+        Math.abs(props.draggedBalata.Y - state.firstBalata.Y) < 20) ||
+        (Math.abs(props.draggedBalata.X - state.lastBalata.X) < 50 &&
+          Math.abs(props.draggedBalata.Y - state.lastBalata.Y) < 20))
     ) {
-      console.log("It is getting near!");
+      return {
+        ...state,
+        aBalataIsNear: true
+      };
+    } else {
+      return {
+        ...state,
+        aBalataIsNear: false
+      };
     }
 
     return null;
@@ -38,21 +57,32 @@ export default class GroundBalatasArranger extends Component {
     }));
   };
 
-  getFirstBalataMeasure = (id, px, py) => {
-    console.log("first balata X", px);
-    console.log("first balata Y", py);
+  getFirstBalataMeasure = (id, dots, px, py) => {
+    // console.log("first balata X", px);
+    // console.log("first balata Y", py);
+    console.log("first balata dots: ", dots);
     this.setState(() => ({
-      firstBalataX: px,
-      firstBalataY: py
+      firstBalata: {
+        id: id,
+        dots: dots,
+        X: px,
+        Y: py
+      }
     }));
   };
 
-  getLastBalataMeasure = (id, px, py) => {
-    console.log("last balata X", px);
-    console.log("last balata Y", py);
+  getLastBalataMeasure = (id, dots, px, py) => {
+    // console.log("last balata X", px);
+    // console.log("last balata Y", py);
+    console.log("last balata dots: ", dots);
+
     this.setState(() => ({
-      lastBalataX: px,
-      lastBalataY: py
+      lastBalata: {
+        id: id,
+        dots: dots,
+        X: px,
+        Y: py
+      }
     }));
   };
 
@@ -91,7 +121,10 @@ export default class GroundBalatasArranger extends Component {
             />
           )}
         </ScrollView>
-        <Button title="Add Balata" onPress={this.addBalata} />
+        <Button
+          title={this.state.aBalataIsNear ? "OMG!" : "no near"}
+          onPress={this.addBalata}
+        />
       </View>
     );
   }

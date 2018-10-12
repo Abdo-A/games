@@ -7,13 +7,15 @@ import NosBalata from "./NosBalata/NosBalata";
 export default class Balata extends Component {
   state = {
     id: null,
+    dots: [],
     X: null,
     Y: null
   };
 
   componentDidMount() {
     this.setState(() => ({
-      id: Math.random()
+      id: Math.random(),
+      dots: this.props.dots
     }));
 
     if (this.props.getMeasure) this.sendMeasure();
@@ -31,7 +33,7 @@ export default class Balata extends Component {
             X: px,
             Y: py
           }));
-          this.props.getMeasure(this.state.id, px, py);
+          this.props.getMeasure(this.state.id, this.props.dots, px, py);
         }
       });
     }, 100);
