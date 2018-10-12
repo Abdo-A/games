@@ -22,27 +22,60 @@ export default class GroundBalatasArranger extends Component {
     aBalataIsNear: false
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (
-      props.draggedBalata &&
-      ((Math.abs(props.draggedBalata.X - state.firstBalata.X) < 50 &&
-        Math.abs(props.draggedBalata.Y - state.firstBalata.Y) < 20) ||
-        (Math.abs(props.draggedBalata.X - state.lastBalata.X) < 50 &&
-          Math.abs(props.draggedBalata.Y - state.lastBalata.Y) < 20))
-    ) {
-      return {
-        ...state,
-        aBalataIsNear: true
-      };
-    } else {
-      return {
-        ...state,
-        aBalataIsNear: false
-      };
-    }
-
-    return null;
+  componentDidMount() {
+    setTimeout(() => {
+      this.initialPositionRef.measure((fx, fy, width, height, px, py) => {
+        console.log(px, py);
+        this.setState(() => ({
+          firstBalata: {
+            id: null,
+            dots: [],
+            X: px,
+            Y: py
+          },
+          lastBalata: {
+            id: null,
+            dots: [],
+            X: px,
+            Y: py
+          }
+        }));
+      });
+    }, 200);
   }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(this.state.firstBalata.X);
+    console.log(this.state.firstBalata.Y);
+    if (
+      nextProps.draggedBalata &&
+      ((Math.abs(nextProps.draggedBalata.X - this.state.firstBalata.X) < 50 &&
+        Math.abs(nextProps.draggedBalata.Y - this.state.firstBalata.Y) < 20) ||
+        (Math.abs(nextProps.draggedBalata.X - this.state.lastBalata.X) < 50 &&
+          Math.abs(nextProps.draggedBalata.Y - this.state.lastBalata.Y) < 20))
+    ) {
+      this.dealWithaNearbyDraggedBalata(nextProps.draggedBalata);
+      this.setState(() => ({
+        aBalataIsNear: true
+      }));
+    } else {
+      this.setState(() => ({
+        aBalataIsNear: false
+      }));
+    }
+  }
+
+  dealWithaNearbyDraggedBalata = nearbyBalata => {
+    console.log("I am inside");
+    if (this.state.balatas.length === 0) {
+      let balatas = [...this.state.balatas];
+
+      balatas.push(nearbyBalata);
+      this.setState(() => ({
+        balatas: balatas
+      }));
+    }
+  };
 
   addBalata = () => {
     const newBalata = {
@@ -114,11 +147,13 @@ export default class GroundBalatasArranger extends Component {
               );
             })
           ) : (
-            <MaterialIcons
-              name="radio-button-unchecked"
-              size={25}
-              color="black"
-            />
+            <View ref={ref => (this.initialPositionRef = ref)}>
+              <MaterialIcons
+                name="radio-button-unchecked"
+                size={25}
+                color="black"
+              />
+            </View>
           )}
         </ScrollView>
         <Button

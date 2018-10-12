@@ -31,7 +31,7 @@ export default class Container extends Component {
       // console.log("dragged Balata Id:", id);
       // console.log("dragged Balata X:", px);
       // console.log("dragged Balata Y:", py);
-      console.log("Dragged balata dots:", dots);
+      //console.log("Dragged balata dots:", dots);
     }
   };
 
