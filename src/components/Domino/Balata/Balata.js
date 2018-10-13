@@ -28,16 +28,27 @@ export default class Balata extends Component {
   };
 
   render() {
-    const balataBody = (
+    let balataBody = (
       <View style={styles.container}>
         <View
           style={[
             styles.balata,
             {
-              width: this.props.orientation === "horizontal" ? 60 : 30,
-              height: this.props.orientation === "horizontal" ? 30 : 60,
+              width:
+                this.props.orientation === "horizontalHeadToLeft" ||
+                this.props.orientation === "horizontalTailToLeft"
+                  ? 60
+                  : 30,
+              height:
+                this.props.orientation === "horizontalHeadToLeft" ||
+                this.props.orientation === "horizontalTailToLeft"
+                  ? 30
+                  : 60,
               flexDirection:
-                this.props.orientation === "horizontal" ? "row" : "column"
+                this.props.orientation === "horizontalHeadToLeft" ||
+                this.props.orientation === "horizontalTailToLeft"
+                  ? "row"
+                  : "column"
             }
           ]}
         >
@@ -46,6 +57,38 @@ export default class Balata extends Component {
         </View>
       </View>
     );
+
+    if (this.props.orientation === "horizontalTailToLeft") {
+      balataBody = (
+        <View style={styles.container}>
+          <View
+            style={[
+              styles.balata,
+              {
+                width:
+                  this.props.orientation === "horizontalHeadToLeft" ||
+                  this.props.orientation === "horizontalTailToLeft"
+                    ? 60
+                    : 30,
+                height:
+                  this.props.orientation === "horizontalHeadToLeft" ||
+                  this.props.orientation === "horizontalTailToLeft"
+                    ? 30
+                    : 60,
+                flexDirection:
+                  this.props.orientation === "horizontalHeadToLeft" ||
+                  this.props.orientation === "horizontalTailToLeft"
+                    ? "row"
+                    : "column"
+              }
+            ]}
+          >
+            <NosBalata dots={this.props.dots[1]} flipped={this.state.flipped} />
+            <NosBalata dots={this.props.dots[0]} flipped={this.state.flipped} />
+          </View>
+        </View>
+      );
+    }
 
     if (this.props.clickable) {
       return (

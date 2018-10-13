@@ -41,7 +41,7 @@ class PlayerBalatasArranger extends Component {
                   <Balata
                     dots={balata.dots}
                     id={balata.id}
-                    orientation="vertical"
+                    orientation="horizontal"
                     clickable
                     clicked={this.onBalataClicked}
                   />
