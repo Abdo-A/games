@@ -37,6 +37,14 @@ export default (state = INITIAL_STATE, action) => {
         groundBalatas: action.groundBalatas
       };
 
+    case actionTypes.SET_RANDOM_INITIAL_BALATAS_FOR_PLAYERS:
+      return {
+        ...state,
+        allBalatas: action.allBalatas,
+        player1Balatas: action.player1Balatas,
+        player2Balatas: action.player2Balatas
+      };
+
     case actionTypes.SET_FIRST_GROUND_BALATA:
       console.log("FIRST", action.balata);
       return {

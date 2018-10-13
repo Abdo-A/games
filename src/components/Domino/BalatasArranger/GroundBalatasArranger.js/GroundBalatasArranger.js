@@ -7,48 +7,12 @@ import * as dominoActions from "../../../../store/actions/dominoActions";
 import Balata from "../../Balata/Balata";
 
 class GroundBalatasArranger extends Component {
-  state = {
-    balatas: [],
-    firstBalata: {
-      id: null,
-      dots: [],
-      X: null,
-      Y: null
-    },
-    lastBalata: {
-      id: null,
-      dots: [],
-      X: null,
-      Y: null
-    },
-    aBalataIsNear: false
-  };
-
   addBalata = () => {
-    const newBalata = {
-      dots: [1, 1],
-      id: Math.random(),
-      orientation: Math.random() >= 0.5 ? "horizontal" : "vertical"
-    };
-    let balatas = [...this.state.balatas];
-    balatas.push(newBalata);
-    this.setState(() => ({
-      balatas: balatas
-    }));
+    console.log("all balatas NOW", this.props.allBalatas);
+    console.log("hi");
   };
 
   getFirstBalataMeasure = (id, dots, px, py) => {
-    // console.log("first balata X", px);
-    // console.log("first balata Y", py);
-    // console.log("first balata dots: ", dots);
-    // this.setState(() => ({
-    //   firstBalata: {
-    //     id: id,
-    //     dots: dots,
-    //     X: px,
-    //     Y: py
-    //   }
-    // }));
     this.props.setFirstGroundBalata({
       id: id,
       dots: dots,
@@ -58,19 +22,6 @@ class GroundBalatasArranger extends Component {
   };
 
   getLastBalataMeasure = (id, dots, px, py) => {
-    // console.log("last balata X", px);
-    // console.log("last balata Y", py);
-    // console.log("last balata dots: ", dots);
-
-    // this.setState(() => ({
-    //   lastBalata: {
-    //     id: id,
-    //     dots: dots,
-    //     X: px,
-    //     Y: py
-    //   }
-    // }));
-
     this.props.setLastGroundBalata({
       id: id,
       dots: dots,
@@ -118,10 +69,7 @@ class GroundBalatasArranger extends Component {
             </View>
           )}
         </ScrollView>
-        <Button
-          title={this.state.aBalataIsNear ? "OMG!" : "no near"}
-          onPress={this.addBalata}
-        />
+        <Button title={"hi"} onPress={this.addBalata} />
       </View>
     );
   }
@@ -144,7 +92,8 @@ const mapStateToProps = state => {
     groundBalatas: state.domino.groundBalatas,
     firstGroundBalata: state.domino.firstGroundBalata,
     lastGroundBalata: state.domino.lastGroundBalata,
-    draggedBalata: state.domino.draggedBalata
+    draggedBalata: state.domino.draggedBalata,
+    allBalatas: state.domino.allBalatas
   };
 };
 

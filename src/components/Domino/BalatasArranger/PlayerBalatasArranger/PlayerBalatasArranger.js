@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { View } from "react-native";
+import { connect } from "react-redux";
 
-export default class PlayerBalatasArranger extends Component {
+class PlayerBalatasArranger extends Component {
   render() {
     return <View />;
   }
 }
+
+export default connect(mapStateToProps)(PlayerBalatasArranger);

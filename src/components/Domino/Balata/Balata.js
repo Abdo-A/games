@@ -14,7 +14,7 @@ export default class Balata extends Component {
 
   componentDidMount() {
     this.setState(() => ({
-      id: Math.random(),
+      id: this.props.id,
       dots: this.props.dots
     }));
 

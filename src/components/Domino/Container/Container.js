@@ -18,6 +18,7 @@ class Container extends Component {
 
   componentDidMount() {
     this.props.setRandomFirstGroundBalata(this.props.allBalatas);
+    this.props.setRandomInitialBalatasForPlayers(this.props.allBalatas);
   }
 
   getDraggedBalata = (id, dots, px, py) => {
@@ -129,6 +130,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   setRandomFirstGroundBalata: dominoActions.setRandomFirstGroundBalata,
+  setRandomInitialBalatasForPlayers:
+    dominoActions.setRandomInitialBalatasForPlayers,
   setDraggedBalata: dominoActions.setDraggedBalata,
   onDraggedBalataRelease: dominoActions.onDraggedBalataRelease
 };
