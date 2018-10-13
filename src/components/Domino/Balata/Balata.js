@@ -3,7 +3,8 @@ import React, { Component } from "react";
 
 import NosBalata from "./NosBalata/NosBalata";
 
-//expected props: id, dots (array), clickable (boolean), clicked (function)
+//expected props: id, dots (array), flippable (boolean)
+//longPressable (boolean), orientation (string), clicked (function)
 
 export default class Balata extends Component {
   state = {
@@ -19,12 +20,16 @@ export default class Balata extends Component {
     }));
   }
 
-  clicked = () => {
-    this.props.clicked(this.state.id, this.props.dots);
+  pressed = () => {
+    if (this.props.flippable)
+      this.setState(prevState => ({
+        flipped: !prevState.flipped
+      }));
+  };
 
-    this.setState(prevState => ({
-      flipped: !prevState.flipped
-    }));
+  longPressed = () => {
+    if (this.props.longPressable)
+      this.props.longPressed(this.state.id, this.props.dots);
   };
 
   render() {
@@ -90,9 +95,11 @@ export default class Balata extends Component {
       );
     }
 
-    if (this.props.clickable) {
+    if (this.props.longPressable || this.props.flippable) {
       return (
-        <TouchableOpacity onPress={this.clicked}>{balataBody}</TouchableOpacity>
+        <TouchableOpacity onPress={this.pressed} onLongPress={this.longPressed}>
+          {balataBody}
+        </TouchableOpacity>
       );
     } else {
       return balataBody;

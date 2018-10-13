@@ -8,15 +8,15 @@ import Balata from "../../Balata/Balata";
 //expected props: player
 
 class PlayerBalatasArranger extends Component {
-  onBalataClicked = (id, dots) => {
-    let clickedBalata = {
+  onBalataChosen = (id, dots) => {
+    let chosenBalata = {
       id: id,
       dots: dots,
       belongsTo: this.props.player
     };
 
-    this.props.onBalataClicked(
-      clickedBalata,
+    this.props.onBalataChosen(
+      chosenBalata,
       this.props.player1Balatas,
       this.props.player2Balatas,
       this.props.groundBalatas,
@@ -41,9 +41,10 @@ class PlayerBalatasArranger extends Component {
                   <Balata
                     dots={balata.dots}
                     id={balata.id}
-                    orientation="horizontal"
-                    clickable
-                    clicked={this.onBalataClicked}
+                    orientation="vertical"
+                    longPressable
+                    flippable
+                    longPressed={this.onBalataChosen}
                   />
                 </View>
               );
@@ -73,7 +74,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  onBalataClicked: dominoActions.onBalataClicked
+  onBalataChosen: dominoActions.onBalataChosen
 };
 
 export default connect(

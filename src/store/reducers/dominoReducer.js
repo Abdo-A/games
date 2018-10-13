@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
         player2Balatas: action.player2Balatas
       };
 
-    case actionTypes.ON_BALATA_CLICKED:
+    case actionTypes.ON_BALATA_CHOSEN:
       return {
         ...state,
         allBalatas: action.allBalatas,

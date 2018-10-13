@@ -66,7 +66,7 @@ export const setRandomInitialBalatasForPlayers = allBalatas => {
 
 //---------------------------------------------------------------------------
 
-export const onBalataClicked = (
+export const onBalataChosen = (
   clickedBalata,
   player1Balatas,
   player2Balatas,
@@ -76,7 +76,7 @@ export const onBalataClicked = (
   console.log(clickedBalata, " is clicked!");
 
   return {
-    type: actionTypes.ON_BALATA_CLICKED,
+    type: actionTypes.ON_BALATA_CHOSEN,
     groundBalatas: groundBalatas, //"groundBalatasEdited"
     allBalatas: allBalatas, //"allBalatasEdited"
     player1Balatas: player1Balatas,
