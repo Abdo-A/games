@@ -89,7 +89,8 @@ export default class NosBalata extends Component {
             justifyContent: this.props.dots === 1 ? "center" : "space-between",
             alignItems: this.props.dots === 1 ? "center" : "flex-start",
             paddingLeft: this.props.dots === 6 ? 10 : 0.1,
-            paddingTop: this.props.dots === 6 ? 2 : -1
+            paddingTop: this.props.dots === 6 ? 2 : -1,
+            borderWidth: this.props.flipped ? 0 : 1
           }
         ]}
       >
@@ -104,7 +105,11 @@ export default class NosBalata extends Component {
                   margin: this.props.dots === 6 ? -6 : 0
                 }}
               >
-                <Text>&#9679;</Text>
+                <Text
+                  style={{ color: this.props.flipped ? "#cecece" : "black" }}
+                >
+                  &#9679;
+                </Text>
               </View>
             );
           })}
@@ -121,7 +126,11 @@ export default class NosBalata extends Component {
                   margin: this.props.dots === 6 ? -6 : 0
                 }}
               >
-                <Text>&#9679;</Text>
+                <Text
+                  style={{ color: this.props.flipped ? "#cecece" : "black" }}
+                >
+                  &#9679;
+                </Text>
               </View>
             );
           })}
@@ -140,7 +149,11 @@ export default class NosBalata extends Component {
                   margin: this.props.dots === 6 ? -6 : 0
                 }}
               >
-                <Text>&#9679;</Text>
+                <Text
+                  style={{ color: this.props.flipped ? "#cecece" : "black" }}
+                >
+                  &#9679;
+                </Text>
               </View>
             );
           })}
@@ -153,7 +166,6 @@ export default class NosBalata extends Component {
 const styles = StyleSheet.create({
   root: {
     borderColor: "black",
-    borderWidth: 1,
     width: 30,
     height: 30,
     flexDirection: "row",

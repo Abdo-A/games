@@ -7,25 +7,7 @@ const INITIAL_STATE = {
   player1Balatas: [], //array of objects
   player2Balatas: [], //array of objects
   player1Identity: "person", //person,computer
-  player2Identity: "computer", //person,computer,
-  draggedBalata: {
-    id: null,
-    dots: [],
-    X: null,
-    Y: null
-  }, //object
-  firstGroundBalata: {
-    id: null,
-    dots: [],
-    X: null,
-    Y: null
-  }, //object
-  lastGroundBalata: {
-    id: null,
-    dots: [],
-    X: null,
-    Y: null
-  } //object
+  player2Identity: "computer" //person,computer,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -47,31 +29,13 @@ export default (state = INITIAL_STATE, action) => {
         player2Balatas: action.player2Balatas
       };
 
-    case actionTypes.SET_FIRST_GROUND_BALATA:
-      console.log("FIRST", action.balata);
-      return {
-        ...state,
-        firstGroundBalata: action.balata
-      };
-
-    case actionTypes.SET_LAST_GROUND_BALATA:
-      console.log("LAST", action.balata);
-      return {
-        ...state,
-        lastGroundBalata: action.balata
-      };
-
-    case actionTypes.SET_DRAGGED_BALATA:
-      return {
-        ...state,
-        draggedBalata: action.balata
-      };
-
-    case actionTypes.ON_DRAGGED_BALATA_RELEASE:
+    case actionTypes.ON_BALATA_CLICKED:
       return {
         ...state,
         allBalatas: action.allBalatas,
-        groundBalatas: action.groundBalatas
+        groundBalatas: action.groundBalatas,
+        player1Balatas: action.player1Balatas,
+        player2Balatas: action.player2Balatas
       };
 
     default:

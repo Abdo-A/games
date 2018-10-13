@@ -8,26 +8,17 @@ import Balata from "../../Balata/Balata";
 //expected props: player
 
 class PlayerBalatasArranger extends Component {
-  getDraggedBalata = (id, dots, px, py) => {
-    if (
-      this.props.draggedBalata.id !== id ||
-      this.props.draggedBalata.X !== px ||
-      this.props.draggedBalata.Y !== py
-    ) {
-      this.props.setDraggedBalata({
-        id: id,
-        dots: dots,
-        X: px,
-        Y: py
-      });
-    }
-  };
+  onBalataClicked = (id, dots) => {
+    let clickedBalata = {
+      id: id,
+      dots: dots,
+      belongsTo: this.props.player
+    };
 
-  onBalataDragRelease = () => {
-    this.props.onDraggedBalataRelease(
-      this.props.draggedBalata,
-      this.props.firstGroundBalata,
-      this.props.lastGroundBalata,
+    this.props.onBalataClicked(
+      clickedBalata,
+      this.props.player1Balatas,
+      this.props.player2Balatas,
       this.props.groundBalatas,
       this.props.allBalatas
     );
@@ -51,9 +42,8 @@ class PlayerBalatasArranger extends Component {
                     dots={balata.dots}
                     id={balata.id}
                     orientation="vertical"
-                    onDragRelease={this.onBalataDragRelease}
-                    getMeasure={this.getDraggedBalata}
-                    draggable
+                    clickable
+                    clicked={this.onBalataClicked}
                   />
                 </View>
               );
@@ -78,16 +68,12 @@ const mapStateToProps = state => {
     player1Balatas: state.domino.player1Balatas,
     player2Balatas: state.domino.player2Balatas,
     allBalatas: state.domino.allBalatas,
-    groundBalatas: state.domino.groundBalatas,
-    draggedBalata: state.domino.draggedBalata,
-    firstGroundBalata: state.domino.firstGroundBalata,
-    lastGroundBalata: state.domino.lastGroundBalata
+    groundBalatas: state.domino.groundBalatas
   };
 };
 
 const mapDispatchToProps = {
-  setDraggedBalata: dominoActions.setDraggedBalata,
-  onDraggedBalataRelease: dominoActions.onDraggedBalataRelease
+  onBalataClicked: dominoActions.onBalataClicked
 };
 
 export default connect(

@@ -1,15 +1,15 @@
-import { View, StyleSheet } from "react-native";
-import Draggable from "react-native-drag";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import React, { Component } from "react";
 
 import NosBalata from "./NosBalata/NosBalata";
+
+//expected props: id, dots (array), clickable (boolean), clicked (function)
 
 export default class Balata extends Component {
   state = {
     id: null,
     dots: [],
-    X: null,
-    Y: null
+    flipped: false
   };
 
   componentDidMount() {
@@ -17,31 +17,19 @@ export default class Balata extends Component {
       id: this.props.id,
       dots: this.props.dots
     }));
-
-    if (this.props.getMeasure) this.sendMeasure();
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  clicked = () => {
+    this.props.clicked(this.state.id, this.props.dots);
 
-  sendMeasure = () => {
-    this.interval = setInterval(() => {
-      this.balataRef.measure((fx, fy, width, height, px, py) => {
-        if (this.state.X !== px || this.state.Y !== py) {
-          this.setState(() => ({
-            X: px,
-            Y: py
-          }));
-          this.props.getMeasure(this.state.id, this.props.dots, px, py);
-        }
-      });
-    }, 100);
+    this.setState(prevState => ({
+      flipped: !prevState.flipped
+    }));
   };
 
   render() {
     const balataBody = (
-      <View style={styles.container} ref={ref => (this.balataRef = ref)}>
+      <View style={styles.container}>
         <View
           style={[
             styles.balata,
@@ -53,22 +41,18 @@ export default class Balata extends Component {
             }
           ]}
         >
-          <NosBalata dots={this.props.dots[0]} />
-          <NosBalata dots={this.props.dots[1]} />
+          <NosBalata dots={this.props.dots[0]} flipped={this.state.flipped} />
+          <NosBalata dots={this.props.dots[1]} flipped={this.state.flipped} />
         </View>
       </View>
     );
 
-    if (this.props.draggable) {
+    if (this.props.clickable) {
       return (
-        <View>
-          <Draggable onDragRelease={this.props.onDragRelease}>
-            {balataBody}
-          </Draggable>
-        </View>
+        <TouchableOpacity onPress={this.clicked}>{balataBody}</TouchableOpacity>
       );
     } else {
-      return <View>{balataBody}</View>;
+      return balataBody;
     }
   }
 }

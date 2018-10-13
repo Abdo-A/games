@@ -11,24 +11,6 @@ class GroundBalatasArranger extends Component {
     console.log("hi");
   };
 
-  getFirstBalataMeasure = (id, dots, px, py) => {
-    this.props.setFirstGroundBalata({
-      id: id,
-      dots: dots,
-      X: px,
-      Y: py
-    });
-  };
-
-  getLastBalataMeasure = (id, dots, px, py) => {
-    this.props.setLastGroundBalata({
-      id: id,
-      dots: dots,
-      X: px,
-      Y: py
-    });
-  };
-
   render() {
     return (
       <View style={styles.root}>
@@ -48,13 +30,6 @@ class GroundBalatasArranger extends Component {
                   id={balata.id}
                   key={balata.id}
                   orientation={balata.orientation}
-                  getMeasure={
-                    i === 0
-                      ? this.getFirstBalataMeasure
-                      : i === this.props.groundBalatas.length - 1
-                        ? this.getLastBalataMeasure
-                        : () => {}
-                  }
                 />
               );
             })
@@ -88,23 +63,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    groundBalatas: state.domino.groundBalatas,
-    firstGroundBalata: state.domino.firstGroundBalata,
-    lastGroundBalata: state.domino.lastGroundBalata,
-    draggedBalata: state.domino.draggedBalata,
-
-    player1Balatas: state.domino.player1Balatas,
-    player2Balatas: state.domino.player2Balatas
+    groundBalatas: state.domino.groundBalatas
   };
 };
 
-const mapDispatchToProps = {
-  makeAllBalatasBelongToGround: dominoActions.makeAllBalatasBelongToGround,
-  setFirstGroundBalata: dominoActions.setFirstGroundBalata,
-  setLastGroundBalata: dominoActions.setLastGroundBalata
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GroundBalatasArranger);
+export default connect(mapStateToProps)(GroundBalatasArranger);

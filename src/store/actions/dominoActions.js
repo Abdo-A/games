@@ -66,59 +66,20 @@ export const setRandomInitialBalatasForPlayers = allBalatas => {
 
 //---------------------------------------------------------------------------
 
-export const setFirstGroundBalata = balata => {
-  return {
-    type: actionTypes.SET_FIRST_GROUND_BALATA,
-    balata: balata
-  };
-};
-
-//---------------------------------------------------------------------------
-
-export const setLastGroundBalata = balata => {
-  return {
-    type: actionTypes.SET_LAST_GROUND_BALATA,
-    balata: balata
-  };
-};
-
-//---------------------------------------------------------------------------
-
-export const setDraggedBalata = balata => {
-  return {
-    type: actionTypes.SET_DRAGGED_BALATA,
-    balata: balata
-  };
-};
-
-//---------------------------------------------------------------------------
-
-export const onDraggedBalataRelease = (
-  draggedBalata,
-  firstBalata,
-  lastBalata,
+export const onBalataClicked = (
+  clickedBalata,
+  player1Balatas,
+  player2Balatas,
   groundBalatas,
   allBalatas
 ) => {
-  console.log("drag is released");
-
-  if (
-    draggedBalata &&
-    ((Math.abs(draggedBalata.X - firstBalata.X) < 50 &&
-      Math.abs(draggedBalata.Y - firstBalata.Y) < 20) ||
-      (Math.abs(draggedBalata.X - lastBalata.X) < 50 &&
-        Math.abs(draggedBalata.Y - lastBalata.Y) < 20))
-  ) {
-    console.log("It is near!");
-
-    //...decide whether or not it should be added to ground balatas
-  } else {
-    return { type: null };
-  }
+  console.log(clickedBalata, " is clicked!");
 
   return {
-    type: actionTypes.ON_DRAGGED_BALATA_RELEASE,
+    type: actionTypes.ON_BALATA_CLICKED,
     groundBalatas: groundBalatas, //"groundBalatasEdited"
-    allBalatas: allBalatas //"allBalatasEdited"
+    allBalatas: allBalatas, //"allBalatasEdited"
+    player1Balatas: player1Balatas,
+    player2Balatas: player2Balatas
   };
 };
