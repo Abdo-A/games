@@ -57,7 +57,7 @@ export const setRandomInitialBalatasForPlayers = allBalatas => {
   }
 
   return {
-    type: actionTypes.SET_RANDOM_FIRST_GROUND_BALATA,
+    type: actionTypes.SET_RANDOM_INITIAL_BALATAS_FOR_PLAYERS,
     allBalatas: allBalatasEdited,
     player1Balatas: player1Balatas,
     player2Balatas: player2Balatas

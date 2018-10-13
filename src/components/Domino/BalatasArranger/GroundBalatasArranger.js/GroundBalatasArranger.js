@@ -8,7 +8,6 @@ import Balata from "../../Balata/Balata";
 
 class GroundBalatasArranger extends Component {
   addBalata = () => {
-    console.log("all balatas NOW", this.props.allBalatas);
     console.log("hi");
   };
 
@@ -93,7 +92,9 @@ const mapStateToProps = state => {
     firstGroundBalata: state.domino.firstGroundBalata,
     lastGroundBalata: state.domino.lastGroundBalata,
     draggedBalata: state.domino.draggedBalata,
-    allBalatas: state.domino.allBalatas
+
+    player1Balatas: state.domino.player1Balatas,
+    player2Balatas: state.domino.player2Balatas
   };
 };
 

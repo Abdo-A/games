@@ -6,8 +6,8 @@ const INITIAL_STATE = {
   groundBalatas: [], //array of objects
   player1Balatas: [], //array of objects
   player2Balatas: [], //array of objects
-  player1: "person", //person,computer
-  player2: "computer", //person,computer,
+  player1Identity: "person", //person,computer
+  player2Identity: "computer", //person,computer,
   draggedBalata: {
     id: null,
     dots: [],
@@ -38,6 +38,8 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case actionTypes.SET_RANDOM_INITIAL_BALATAS_FOR_PLAYERS:
+      // console.log("player1Balatas", action.player1Balatas);
+      // console.log("player2Balatas", action.player2Balatas);
       return {
         ...state,
         allBalatas: action.allBalatas,
