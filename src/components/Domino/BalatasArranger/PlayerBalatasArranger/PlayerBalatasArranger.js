@@ -8,6 +8,10 @@ import Balata from "../../Balata/Balata";
 //expected props: player
 
 class PlayerBalatasArranger extends Component {
+  state = {
+    flipAllBalatas: null //"flip", "unflip", "dontcare"
+  };
+
   onBalataChosen = (id, dots) => {
     let chosenBalata = {
       id: id,
@@ -15,14 +19,36 @@ class PlayerBalatasArranger extends Component {
       belongsTo: this.props.player
     };
 
-    this.props.onBalataChosen(
-      chosenBalata,
-      this.props.player1Balatas,
-      this.props.player2Balatas,
-      this.props.groundBalatas,
-      this.props.allBalatas,
-      this.props.whoseTurn
-    );
+    if (this.props.player === this.props.whoseTurn) {
+      this.props.onBalataChosen(
+        chosenBalata,
+        this.props.player1Balatas,
+        this.props.player2Balatas,
+        this.props.groundBalatas,
+        this.props.allBalatas,
+        this.props.whoseTurn
+      );
+
+      this.props.toggleSpareBalatas(false);
+    } else {
+      alert("It's not your turn");
+    }
+  };
+
+  flipOrUnflipAllBalatas(flipOrUnflip) {
+    if (flipOrUnflip === "flip") {
+      this.setState(() => ({
+        flipAllBalatas: "flip"
+      }));
+    } else if (flipOrUnflip === "unflip") {
+      this.setState(() => ({
+        flipAllBalatas: "unflip"
+      }));
+    }
+  }
+
+  showSpareBalatas = () => {
+    this.props.toggleSpareBalatas(true);
   };
 
   render() {
@@ -35,11 +61,16 @@ class PlayerBalatasArranger extends Component {
 
     return (
       <View style={styles.root}>
-        <View style={styles.spareBalataContainer}>
-          <TouchableOpacity style={styles.spareButton}>
-            <Text style={{ fontSize: 10 }}>Extra Balata</Text>
-          </TouchableOpacity>
-        </View>
+        {this.props.player === this.props.whoseTurn && (
+          <View style={styles.spareBalataContainer}>
+            <TouchableOpacity
+              style={styles.spareButton}
+              onPress={this.showSpareBalatas}
+            >
+              <Text style={{ fontSize: 10 }}>Extra Balata</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         {playerBalatas
           ? playerBalatas.map((balata, i) => {
@@ -52,11 +83,28 @@ class PlayerBalatasArranger extends Component {
                     longPressable
                     flippable
                     longPressed={this.onBalataChosen}
+                    suddenFlip={this.state.flipAllBalatas}
                   />
                 </View>
               );
             })
           : null}
+
+        <View style={styles.flipBalataContainer}>
+          <TouchableOpacity
+            style={styles.flipButton}
+            onPress={() => this.flipOrUnflipAllBalatas("flip")}
+          >
+            <Text style={{ fontSize: 10 }}>Flip all</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.flipButton}
+            onPress={() => this.flipOrUnflipAllBalatas("unflip")}
+          >
+            <Text style={{ fontSize: 10 }}>Show all</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -80,6 +128,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#cacaca",
     width: 60,
     height: 30
+  },
+  flipBalataContainer: {
+    flexDirection: "column",
+    justifyContent: "center"
+  },
+  flipButton: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ca839b",
+    width: 60,
+    height: 30
   }
 });
 
@@ -94,7 +154,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  onBalataChosen: dominoActions.onBalataChosen
+  onBalataChosen: dominoActions.onBalataChosen,
+  toggleSpareBalatas: dominoActions.toggleSpareBalatas
 };
 
 export default connect(

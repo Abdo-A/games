@@ -9,7 +9,8 @@ const INITIAL_STATE = {
   spareBalatas: [], //array of objects
   player1Identity: "person", //person,computer
   player2Identity: "computer", //person,computer
-  whoseTurn: "player1" //player1, player2
+  whoseTurn: "player1", //player1, player2
+  showSpareBalatas: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -41,6 +42,13 @@ export default (state = INITIAL_STATE, action) => {
         spareBalatas: action.spareBalatas,
         player1Balatas: action.player1Balatas,
         player2Balatas: action.player2Balatas
+      };
+
+    case actionTypes.TOGGLE_SPARE_BALATAS:
+      console.log("SOMEONE IS IN ME");
+      return {
+        ...state,
+        showSpareBalatas: action.trueOrFalse
       };
 
     default:

@@ -1,17 +1,24 @@
 import { connect } from "react-redux";
 import { View, StyleSheet } from "react-native";
+import * as Animatable from "react-native-animatable";
 import React, { Component } from "react";
 
 import * as dominoActions from "../../../../store/actions/dominoActions";
 import Balata from "../../Balata/Balata";
 
 class SpareBalatasArranger extends Component {
+  componentWillReceiveProps(nextProps) {
+    console.log("showSpareBalatas", this.props.showSpareBalatas);
+  }
+
   spareBalataChosen = (id, dots) => {
     let chosenBalata = {
       id: id,
       dots: dots,
       belongsTo: "spare"
     };
+
+    this.props.toggleSpareBalatas(false);
 
     this.props.onSpareBalataChosen(
       chosenBalata,
@@ -25,7 +32,11 @@ class SpareBalatasArranger extends Component {
 
   render() {
     return (
-      <View style={styles.balatas}>
+      <Animatable.View
+        style={styles.balatas}
+        animation={this.props.showSpareBalatas ? "slideInLeft" : "flipOutY"}
+        duration={1000}
+      >
         {this.props.spareBalatas && this.props.spareBalatas.length >= 1
           ? this.props.spareBalatas.map((balata, i) => {
               console.log(balata.id);
@@ -42,7 +53,7 @@ class SpareBalatasArranger extends Component {
               );
             })
           : null}
-      </View>
+      </Animatable.View>
     );
   }
 }
@@ -61,12 +72,14 @@ const mapStateToProps = state => {
     player1Balatas: state.domino.player1Balatas,
     player2Balatas: state.domino.player2Balatas,
     allBalatas: state.domino.allBalatas,
-    whoseTurn: state.domino.whoseTurn
+    whoseTurn: state.domino.whoseTurn,
+    showSpareBalatas: state.domino.showSpareBalatas
   };
 };
 
 const mapDispatchToProps = {
-  onSpareBalataChosen: dominoActions.onSpareBalataChosen
+  onSpareBalataChosen: dominoActions.onSpareBalataChosen,
+  toggleSpareBalatas: dominoActions.toggleSpareBalatas
 };
 
 export default connect(

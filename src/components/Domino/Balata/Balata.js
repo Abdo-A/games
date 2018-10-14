@@ -8,7 +8,7 @@ import NosBalata from "./NosBalata/NosBalata";
 
 //optional props:
 //longPressable (boolean), longPressed (function, if longPressable is true)
-//orientation (string), flipped (boolean), flippable (boolean)
+//orientation (string), flipped (boolean), flippable (boolean), suddenFlip (string, "flip", "unflip", "dontcare")
 
 export default class Balata extends Component {
   state = {
@@ -16,6 +16,18 @@ export default class Balata extends Component {
     dots: [],
     flipped: false
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.suddenFlip === "flip") {
+      this.setState(() => ({
+        flipped: true
+      }));
+    } else if (nextProps.suddenFlip === "unflip") {
+      this.setState(() => ({
+        flipped: false
+      }));
+    }
+  }
 
   componentDidMount() {
     this.setState(() => ({

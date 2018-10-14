@@ -258,3 +258,10 @@ export const onSpareBalataChosen = (
     player2Balatas: player2BalatasEdited
   };
 };
+
+export const toggleSpareBalatas = trueOrFalse => {
+  return {
+    type: actionTypes.TOGGLE_SPARE_BALATAS,
+    trueOrFalse: trueOrFalse
+  };
+};

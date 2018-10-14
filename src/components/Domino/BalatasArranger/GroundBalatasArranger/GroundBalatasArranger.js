@@ -14,7 +14,8 @@ class GroundBalatasArranger extends Component {
           horizontal
           contentContainerStyle={{
             alignItems: "center",
-            paddingLeft: "46%"
+            paddingLeft: "46%",
+            paddingRight: "46%"
           }}
         >
           {this.props.groundBalatas && this.props.groundBalatas.length >= 1 ? (
