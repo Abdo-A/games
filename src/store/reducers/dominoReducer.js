@@ -8,21 +8,12 @@ const INITIAL_STATE = {
   player2Balatas: [], //array of objects
   spareBalatas: [],
   player1Identity: "person", //person,computer
-  player2Identity: "computer" //person,computer,
+  player2Identity: "computer" //person,computer
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case actionTypes.SET_RANDOM_FIRST_GROUND_BALATA:
-      return {
-        ...state,
-        allBalatas: action.allBalatas,
-        groundBalatas: action.groundBalatas
-      };
-
     case actionTypes.SET_RANDOM_INITIAL_BALATAS_FOR_PLAYERS:
-      // console.log("player1Balatas", action.player1Balatas);
-      // console.log("player2Balatas", action.player2Balatas);
       return {
         ...state,
         allBalatas: action.allBalatas,

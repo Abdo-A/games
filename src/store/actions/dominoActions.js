@@ -2,25 +2,6 @@ import * as actionTypes from "./actionTypes";
 
 //---------------------------------------------------------------------------
 
-export const setRandomFirstGroundBalata = allBalatas => {
-  let randomId = Math.floor(Math.random() * (28 - 0) + 0); //0 inclusive and 28 exclusive
-
-  let allBalatasEdited = [...allBalatas];
-  let randomIndex = allBalatasEdited.findIndex(balata => balata.id == randomId);
-
-  allBalatasEdited[randomIndex].belongsTo = "ground";
-
-  const groundBalatas = [allBalatasEdited[randomIndex]];
-
-  return {
-    type: actionTypes.SET_RANDOM_FIRST_GROUND_BALATA,
-    allBalatas: allBalatasEdited,
-    groundBalatas: groundBalatas
-  };
-};
-
-//---------------------------------------------------------------------------
-
 export const setRandomInitialBalatasForPlayers = allBalatas => {
   let allBalatasEdited = [...allBalatas];
   let player1Balatas = [];
@@ -93,13 +74,13 @@ export const setRandomInitialBalatasForPlayers = allBalatas => {
 //---------------------------------------------------------------------------
 
 export const onBalataChosen = (
-  clickedBalata,
+  pressedBalata,
   player1Balatas,
   player2Balatas,
   groundBalatas,
   allBalatas
 ) => {
-  console.log(clickedBalata, " is clicked!");
+  console.log(pressedBalata, " is pressed!");
 
   return {
     type: actionTypes.ON_BALATA_CHOSEN,

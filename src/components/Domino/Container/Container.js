@@ -9,7 +9,6 @@ import SpareBalatasArranger from "../BalatasArranger/SpareBalatasArranger/SpareB
 
 class Container extends Component {
   componentDidMount() {
-    this.props.setRandomFirstGroundBalata(this.props.allBalatas);
     this.props.setRandomInitialBalatasForPlayers(this.props.allBalatas);
   }
 
@@ -48,7 +47,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setRandomFirstGroundBalata: dominoActions.setRandomFirstGroundBalata,
   setRandomInitialBalatasForPlayers:
     dominoActions.setRandomInitialBalatasForPlayers
 };
