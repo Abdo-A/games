@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import * as dominoActions from "../../../store/actions/dominoActions";
 import GroundBalatasArranger from "../BalatasArranger/GroundBalatasArranger/GroundBalatasArranger";
 import PlayerBalatasArranger from "../BalatasArranger/PlayerBalatasArranger/PlayerBalatasArranger";
+import SpareBalatasArranger from "../BalatasArranger/SpareBalatasArranger/SpareBalatasArranger";
 
 class Container extends Component {
   componentDidMount() {
@@ -22,7 +23,7 @@ class Container extends Component {
         <PlayerBalatasArranger player="player1" />
 
         <View style={{ position: "absolute", left: 0 }}>
-          <Text>Hi</Text>
+          <SpareBalatasArranger />
         </View>
       </View>
     );

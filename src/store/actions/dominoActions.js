@@ -71,8 +71,13 @@ export const setRandomInitialBalatasForPlayers = allBalatas => {
     );
 
     if (allBalatasEdited[randomIndex].belongsTo == "spare" && counter3 < 13) {
-      spareBalatas.push(allBalatasEdited[randomIndex]);
-      counter3++;
+      let index = spareBalatas.findIndex(
+        balata => balata.id == allBalatasEdited[randomIndex].id
+      );
+      if (index === -1) {
+        spareBalatas.push(allBalatasEdited[randomIndex]);
+        counter3++;
+      }
     }
   }
 

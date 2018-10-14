@@ -3,8 +3,12 @@ import React, { Component } from "react";
 
 import NosBalata from "./NosBalata/NosBalata";
 
-//expected props: id, dots (array), flippable (boolean)
-//longPressable (boolean), orientation (string), clicked (function)
+//expected props:
+//id, dots (array)
+
+//optional props:
+//longPressable (boolean), longPressed (function, if longPressable is true)
+//orientation (string), flipped (boolean), flippable (boolean)
 
 export default class Balata extends Component {
   state = {
@@ -18,6 +22,12 @@ export default class Balata extends Component {
       id: this.props.id,
       dots: this.props.dots
     }));
+
+    if (this.props.flipped) {
+      this.setState(() => ({
+        flipped: true
+      }));
+    }
   }
 
   pressed = () => {
