@@ -25,9 +25,10 @@ export const setRandomInitialBalatasForPlayers = allBalatas => {
   let allBalatasEdited = [...allBalatas];
   let player1Balatas = [];
   let player2Balatas = [];
+  let spareBalatas = [];
 
-  let counter1 = 0,
-    counter2 = 0;
+  //for player1
+  let counter1 = 0;
 
   while (counter1 < 7) {
     let randomId = Math.floor(Math.random() * (28 - 0) + 0); //0 inclusive and 28 exclusive
@@ -41,6 +42,9 @@ export const setRandomInitialBalatasForPlayers = allBalatas => {
       counter1++;
     }
   }
+
+  //for player2
+  let counter2 = 0;
 
   while (counter2 < 7) {
     let randomId = Math.floor(Math.random() * (28 - 0) + 0); //0 inclusive and 28 exclusive
@@ -56,11 +60,28 @@ export const setRandomInitialBalatasForPlayers = allBalatas => {
     }
   }
 
+  //for spare
+  let counter3 = 0;
+
+  while (counter3 < 13) {
+    let randomId = Math.floor(Math.random() * (28 - 0) + 0); //0 inclusive and 28 exclusive
+
+    let randomIndex = allBalatasEdited.findIndex(
+      balata => balata.id == randomId
+    );
+
+    if (allBalatasEdited[randomIndex].belongsTo == "spare" && counter3 < 13) {
+      spareBalatas.push(allBalatasEdited[randomIndex]);
+      counter3++;
+    }
+  }
+
   return {
     type: actionTypes.SET_RANDOM_INITIAL_BALATAS_FOR_PLAYERS,
     allBalatas: allBalatasEdited,
     player1Balatas: player1Balatas,
-    player2Balatas: player2Balatas
+    player2Balatas: player2Balatas,
+    spareBalatas: spareBalatas
   };
 };
 

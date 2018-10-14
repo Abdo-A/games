@@ -53,10 +53,12 @@ const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
     alignItems: "center",
-    width: "100%",
-    height: "30%",
+    width: "70%",
+    height: 130,
     borderTopWidth: 3,
     borderBottomWidth: 3,
+    borderLeftWidth: 3,
+    borderRightWidth: 3,
     borderColor: "brown"
   }
 });

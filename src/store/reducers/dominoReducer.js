@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   groundBalatas: [], //array of objects
   player1Balatas: [], //array of objects
   player2Balatas: [], //array of objects
+  spareBalatas: [],
   player1Identity: "person", //person,computer
   player2Identity: "computer" //person,computer,
 };
@@ -26,7 +27,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         allBalatas: action.allBalatas,
         player1Balatas: action.player1Balatas,
-        player2Balatas: action.player2Balatas
+        player2Balatas: action.player2Balatas,
+        spareBalatas: action.spareBalatas
       };
 
     case actionTypes.ON_BALATA_CHOSEN:

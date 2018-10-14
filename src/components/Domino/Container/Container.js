@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import { View, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { Component } from "react";
 
 import * as dominoActions from "../../../store/actions/dominoActions";
-import GroundBalatasArranger from "../BalatasArranger/GroundBalatasArranger.js/GroundBalatasArranger";
+import GroundBalatasArranger from "../BalatasArranger/GroundBalatasArranger/GroundBalatasArranger";
 import PlayerBalatasArranger from "../BalatasArranger/PlayerBalatasArranger/PlayerBalatasArranger";
 
 class Container extends Component {
@@ -20,6 +20,10 @@ class Container extends Component {
         <GroundBalatasArranger />
 
         <PlayerBalatasArranger player="player1" />
+
+        <View style={{ position: "absolute", left: 0 }}>
+          <Text>Hi</Text>
+        </View>
       </View>
     );
   }
