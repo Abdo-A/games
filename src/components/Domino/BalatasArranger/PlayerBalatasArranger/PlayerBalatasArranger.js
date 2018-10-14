@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { View, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import React, { Component } from "react";
 
 import * as dominoActions from "../../../../store/actions/dominoActions";
@@ -20,7 +20,8 @@ class PlayerBalatasArranger extends Component {
       this.props.player1Balatas,
       this.props.player2Balatas,
       this.props.groundBalatas,
-      this.props.allBalatas
+      this.props.allBalatas,
+      this.props.whoseTurn
     );
   };
 
@@ -34,6 +35,12 @@ class PlayerBalatasArranger extends Component {
 
     return (
       <View style={styles.root}>
+        <View style={styles.spareBalataContainer}>
+          <TouchableOpacity style={styles.spareButton}>
+            <Text style={{ fontSize: 10 }}>Extra Balata</Text>
+          </TouchableOpacity>
+        </View>
+
         {playerBalatas
           ? playerBalatas.map((balata, i) => {
               return (
@@ -61,6 +68,18 @@ const styles = StyleSheet.create({
   },
   balata: {
     marginHorizontal: 5
+  },
+  spareBalataContainer: {
+    flexDirection: "column",
+    justifyContent: "center"
+  },
+  spareButton: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#cacaca",
+    width: 60,
+    height: 30
   }
 });
 
@@ -69,7 +88,8 @@ const mapStateToProps = state => {
     player1Balatas: state.domino.player1Balatas,
     player2Balatas: state.domino.player2Balatas,
     allBalatas: state.domino.allBalatas,
-    groundBalatas: state.domino.groundBalatas
+    groundBalatas: state.domino.groundBalatas,
+    whoseTurn: state.domino.whoseTurn
   };
 };
 

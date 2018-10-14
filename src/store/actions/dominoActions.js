@@ -78,14 +78,14 @@ export const onBalataChosen = (
   player1Balatas,
   player2Balatas,
   groundBalatas,
-  allBalatas
+  allBalatas,
+  whoseTurn
 ) => {
-  console.log(pressedBalata, " is pressed!");
-
   let groundBalatasEdited = [...groundBalatas];
   let player1BalatasEdited = [...player1Balatas];
   let player2BalatasEdited = [...player2Balatas];
   let allBalatasEdited = [...allBalatas];
+  let whoseTurnEdited = whoseTurn;
 
   let orientation;
   let pushOrUnshift;
@@ -146,6 +146,10 @@ export const onBalataChosen = (
       orientation,
       pushOrUnshift
     );
+
+    whoseTurnEdited === "player1"
+      ? (whoseTurnEdited = "player2")
+      : (whoseTurnEdited = "player1");
   } else {
     alert("Can't be played");
   }
@@ -155,11 +159,12 @@ export const onBalataChosen = (
     groundBalatas: groundBalatasEdited,
     allBalatas: allBalatasEdited,
     player1Balatas: player1BalatasEdited,
-    player2Balatas: player2BalatasEdited
+    player2Balatas: player2BalatasEdited,
+    whoseTurn: whoseTurnEdited
   };
 };
 
-// HELPER METHOD
+// HELPER METHOD BEGIN
 addToGround = (
   pressedBalata,
   groundBalatasEdited,
@@ -205,4 +210,51 @@ addToGround = (
     player2BalatasEdited,
     allBalatasEdited
   ];
+};
+// HELPER METHOD END
+
+//---------------------------------------------------------------------------
+
+export const onSpareBalataChosen = (
+  pressedBalata,
+  spareBalatas,
+  player1Balatas,
+  player2Balatas,
+  allBalatas,
+  whoseTurn
+) => {
+  let spareBalatasEdited = [...spareBalatas];
+  let player1BalatasEdited = [...player1Balatas];
+  let player2BalatasEdited = [...player2Balatas];
+  let allBalatasEdited = [...allBalatas];
+
+  let index = spareBalatasEdited.findIndex(
+    balata => balata.id == pressedBalata.id
+  );
+  if (index !== -1) {
+    spareBalatasEdited.splice(index, 1);
+  }
+
+  pressedBalata.belongsTo = whoseTurn;
+
+  if (whoseTurn === "player1") {
+    player1BalatasEdited.unshift(pressedBalata);
+  } else if (whoseTurn === "player2") {
+    player2BalatasEdited.unshift(pressedBalata);
+  }
+
+  allBalatasEdited.map(balata => {
+    if (balata.id === pressedBalata.id) {
+      balata.belongsTo = whoseTurn;
+    }
+    return balata;
+  });
+
+  return {
+    type: actionTypes.ON_SPARE_BALATA_CHOSEN,
+    spareBalatas: spareBalatasEdited,
+    allBalatas: allBalatasEdited,
+    player1Balatas: player1BalatasEdited,
+    player2Balatas: player2BalatasEdited
+  };
 };

@@ -7,10 +7,6 @@ import * as dominoActions from "../../../../store/actions/dominoActions";
 import Balata from "../../Balata/Balata";
 
 class GroundBalatasArranger extends Component {
-  addBalata = () => {
-    console.log("hi");
-  };
-
   render() {
     return (
       <View style={styles.root}>
@@ -18,8 +14,7 @@ class GroundBalatasArranger extends Component {
           horizontal
           contentContainerStyle={{
             alignItems: "center",
-            paddingLeft: "40%",
-            paddingRight: "40%"
+            paddingLeft: "46%"
           }}
         >
           {this.props.groundBalatas && this.props.groundBalatas.length >= 1 ? (
@@ -43,7 +38,6 @@ class GroundBalatasArranger extends Component {
             </View>
           )}
         </ScrollView>
-        <Button title={"hi"} onPress={this.addBalata} />
       </View>
     );
   }
