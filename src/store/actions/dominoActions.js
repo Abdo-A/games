@@ -82,11 +82,127 @@ export const onBalataChosen = (
 ) => {
   console.log(pressedBalata, " is pressed!");
 
+  let groundBalatasEdited = [...groundBalatas];
+  let player1BalatasEdited = [...player1Balatas];
+  let player2BalatasEdited = [...player2Balatas];
+  let allBalatasEdited = [...allBalatas];
+
+  let orientation;
+  let pushOrUnshift;
+  let successFlag = false;
+
+  if (groundBalatasEdited.length === 0) {
+    pushOrUnshift = "push";
+    successFlag = true;
+
+    orientation = "horizontalHeadToLeft";
+  } else {
+    const firstDotsInGroundQueue =
+      groundBalatasEdited[0].orientation === "horizontalHeadToLeft"
+        ? groundBalatasEdited[0].dots[0]
+        : groundBalatasEdited[0].dots[1];
+
+    const lastDotsInGroundQueue =
+      groundBalatasEdited[groundBalatasEdited.length - 1].orientation ===
+      "horizontalHeadToLeft"
+        ? groundBalatasEdited[groundBalatasEdited.length - 1].dots[1]
+        : groundBalatasEdited[groundBalatasEdited.length - 1].dots[0];
+
+    if (pressedBalata.dots[0] === firstDotsInGroundQueue) {
+      orientation = "horizontalTailToLeft";
+      pushOrUnshift = "unshift";
+      successFlag = true;
+    } else if (pressedBalata.dots[1] === firstDotsInGroundQueue) {
+      orientation = "horizontalHeadToLeft";
+      pushOrUnshift = "unshift";
+      successFlag = true;
+    } else if (pressedBalata.dots[0] === lastDotsInGroundQueue) {
+      orientation = "horizontalHeadToLeft";
+      pushOrUnshift = "push";
+      successFlag = true;
+    } else if (pressedBalata.dots[1] === lastDotsInGroundQueue) {
+      orientation = "horizontalTailToLeft";
+      pushOrUnshift = "push";
+      successFlag = true;
+    }
+  }
+
+  if (successFlag && pressedBalata.dots[0] === pressedBalata.dots[1]) {
+    orientation = "vertical";
+  }
+
+  if (successFlag) {
+    [
+      groundBalatasEdited,
+      player1BalatasEdited,
+      player2BalatasEdited,
+      allBalatasEdited
+    ] = this.addToGround(
+      pressedBalata,
+      groundBalatasEdited,
+      player1BalatasEdited,
+      player2BalatasEdited,
+      allBalatasEdited,
+      orientation,
+      pushOrUnshift
+    );
+  } else {
+    alert("Can't be played");
+  }
+
   return {
     type: actionTypes.ON_BALATA_CHOSEN,
-    groundBalatas: groundBalatas, //"groundBalatasEdited"
-    allBalatas: allBalatas, //"allBalatasEdited"
-    player1Balatas: player1Balatas,
-    player2Balatas: player2Balatas
+    groundBalatas: groundBalatasEdited,
+    allBalatas: allBalatasEdited,
+    player1Balatas: player1BalatasEdited,
+    player2Balatas: player2BalatasEdited
   };
+};
+
+// HELPER METHOD
+addToGround = (
+  pressedBalata,
+  groundBalatasEdited,
+  player1BalatasEdited,
+  player2BalatasEdited,
+  allBalatasEdited,
+  orientation,
+  pushOrUnshift
+) => {
+  let index = player1BalatasEdited.findIndex(
+    balata => balata.id == pressedBalata.id
+  );
+  if (index !== -1) {
+    player1BalatasEdited.splice(index, 1);
+  }
+
+  index = player2BalatasEdited.findIndex(
+    balata => balata.id == pressedBalata.id
+  );
+  if (index !== -1) {
+    player2BalatasEdited.splice(index, 1);
+  }
+
+  pressedBalata.belongsTo = "ground";
+  pressedBalata.orientation = orientation;
+
+  if (pushOrUnshift === "push") {
+    groundBalatasEdited.push(pressedBalata);
+  } else {
+    groundBalatasEdited.unshift(pressedBalata);
+  }
+
+  allBalatasEdited.map(balata => {
+    if (balata.id === pressedBalata.id) {
+      balata.belongsTo = "ground";
+    }
+    return balata;
+  });
+
+  return [
+    groundBalatasEdited,
+    player1BalatasEdited,
+    player2BalatasEdited,
+    allBalatasEdited
+  ];
 };
