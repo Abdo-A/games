@@ -26,6 +26,7 @@ class SpareBalatasArranger extends Component {
       this.props.player1Balatas,
       this.props.player2Balatas,
       this.props.allBalatas,
+      this.props.groundBalatas,
       this.props.whoseTurn
     );
   };
@@ -72,6 +73,7 @@ const mapStateToProps = state => {
     player1Balatas: state.domino.player1Balatas,
     player2Balatas: state.domino.player2Balatas,
     allBalatas: state.domino.allBalatas,
+    groundBalatas: state.domino.groundBalatas,
     whoseTurn: state.domino.whoseTurn,
     showSpareBalatas: state.domino.showSpareBalatas
   };

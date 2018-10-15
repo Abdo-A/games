@@ -81,6 +81,7 @@ export const onBalataChosen = (
   allBalatas,
   whoseTurn
 ) => {
+  if (whoseTurn === "player2") console.log("Computer led me to here!");
   let groundBalatasEdited = [...groundBalatas];
   let player1BalatasEdited = [...player1Balatas];
   let player2BalatasEdited = [...player2Balatas];
@@ -97,6 +98,7 @@ export const onBalataChosen = (
 
     orientation = "horizontalHeadToLeft";
   } else {
+    if (whoseTurn === "player2") console.log("Computer led me to here 2");
     const firstDotsInGroundQueue =
       groundBalatasEdited[0].orientation === "horizontalHeadToLeft"
         ? groundBalatasEdited[0].dots[0]
@@ -132,6 +134,8 @@ export const onBalataChosen = (
   }
 
   if (successFlag) {
+    if (whoseTurn === "player2") console.log("Computer led me to here 3");
+
     [
       groundBalatasEdited,
       player1BalatasEdited,
@@ -153,6 +157,9 @@ export const onBalataChosen = (
   } else {
     alert("Can't be played");
   }
+
+  if (whoseTurn === "player2")
+    console.log("Computer led me to here 4", groundBalatasEdited);
 
   return {
     type: actionTypes.ON_BALATA_CHOSEN,
@@ -221,6 +228,7 @@ export const onSpareBalataChosen = (
   player1Balatas,
   player2Balatas,
   allBalatas,
+  groundBalatas,
   whoseTurn
 ) => {
   let spareBalatasEdited = [...spareBalatas];
@@ -269,3 +277,73 @@ export const toggleSpareBalatas = trueOrFalse => {
 };
 
 //---------------------------------------------------------------------------
+
+export const onComputerTurn = (
+  player1Balatas,
+  computerBalatas,
+  groundBalatas,
+  allBalatas,
+  spareBalatas,
+  whoseTurn
+) => dispatch => {
+  const firstDotsInGroundQueue =
+    groundBalatas[0].orientation === "horizontalHeadToLeft"
+      ? groundBalatas[0].dots[0]
+      : groundBalatas[0].dots[1];
+
+  const lastDotsInGroundQueue =
+    groundBalatas[groundBalatas.length - 1].orientation ===
+    "horizontalHeadToLeft"
+      ? groundBalatas[groundBalatas.length - 1].dots[1]
+      : groundBalatas[groundBalatas.length - 1].dots[0];
+
+  let chosenBalata = "none";
+
+  for (let i = 0; i < computerBalatas.length; i++) {
+    if (
+      computerBalatas[i].dots[0] === firstDotsInGroundQueue ||
+      computerBalatas[i].dots[1] === firstDotsInGroundQueue ||
+      computerBalatas[i].dots[0] === lastDotsInGroundQueue ||
+      computerBalatas[i].dots[1] === lastDotsInGroundQueue
+    ) {
+      chosenBalata = computerBalatas[i];
+    }
+  }
+
+  if (chosenBalata !== "none") {
+    setTimeout(() => {
+      dispatch(
+        onBalataChosen(
+          chosenBalata,
+          player1Balatas,
+          computerBalatas,
+          groundBalatas,
+          allBalatas,
+          whoseTurn
+        )
+      );
+    }, 900);
+    console.log("Chosen by computer ", chosenBalata);
+  } else {
+    if (spareBalatas.length >= 1) {
+      dispatch(toggleSpareBalatas(true)); //400
+
+      const chosenSpareBalata = spareBalatas[0];
+      setTimeout(() => {
+        dispatch(
+          onSpareBalataChosen(
+            chosenSpareBalata,
+            spareBalatas,
+            player1Balatas,
+            computerBalatas,
+            allBalatas,
+            groundBalatas,
+            whoseTurn
+          )
+        );
+      }, 1000);
+    } else {
+      console.log("Computer lost");
+    }
+  }
+};

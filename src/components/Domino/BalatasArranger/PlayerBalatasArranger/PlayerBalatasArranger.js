@@ -37,6 +37,20 @@ class PlayerBalatasArranger extends Component {
       );
 
       this.props.toggleSpareBalatas(false);
+
+      if (
+        this.props.player2Identity === "computer" &&
+        this.props.whoseTurn === "player2"
+      ) {
+        this.props.onComputerTurn(
+          this.props.player1Balatas,
+          this.props.player2Balatas,
+          this.props.groundBalatas,
+          this.props.allBalatas,
+          this.props.spareBalatas,
+          this.props.whoseTurn
+        );
+      }
     } else {
       alert("It's not your turn");
     }
@@ -171,13 +185,15 @@ const mapStateToProps = state => {
     allBalatas: state.domino.allBalatas,
     groundBalatas: state.domino.groundBalatas,
     whoseTurn: state.domino.whoseTurn,
-    player2Identity: state.domino.player2Identity
+    player2Identity: state.domino.player2Identity,
+    spareBalatas: state.domino.spareBalatas
   };
 };
 
 const mapDispatchToProps = {
   onBalataChosen: dominoActions.onBalataChosen,
-  toggleSpareBalatas: dominoActions.toggleSpareBalatas
+  toggleSpareBalatas: dominoActions.toggleSpareBalatas,
+  onComputerTurn: dominoActions.onComputerTurn
 };
 
 export default connect(

@@ -1,6 +1,13 @@
 import { connect } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
-import { View, Button, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Button,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  ScrollView
+} from "react-native";
 import React, { Component } from "react";
 
 import * as dominoActions from "../../../../store/actions/dominoActions";
