@@ -259,9 +259,13 @@ export const onSpareBalataChosen = (
   };
 };
 
+//---------------------------------------------------------------------------
+
 export const toggleSpareBalatas = trueOrFalse => {
   return {
     type: actionTypes.TOGGLE_SPARE_BALATAS,
     trueOrFalse: trueOrFalse
   };
 };
+
+//---------------------------------------------------------------------------

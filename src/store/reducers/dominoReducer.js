@@ -45,7 +45,6 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case actionTypes.TOGGLE_SPARE_BALATAS:
-      console.log("SOMEONE IS IN ME");
       return {
         ...state,
         showSpareBalatas: action.trueOrFalse

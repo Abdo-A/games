@@ -5,6 +5,13 @@ import React, { Component } from "react";
 import * as dominoActions from "../../../../store/actions/dominoActions";
 import Balata from "../../Balata/Balata";
 
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger
+} from "react-native-popup-menu";
+
 //expected props: player
 
 class PlayerBalatasArranger extends Component {
@@ -59,18 +66,59 @@ class PlayerBalatasArranger extends Component {
       playerBalatas = this.props.player2Balatas;
     }
 
+    let computerBalatas = false;
+    if (
+      this.props.player === "player2" &&
+      this.props.player2Identity === "computer"
+    ) {
+      computerBalatas = true;
+    }
+
     return (
       <View style={styles.root}>
-        {this.props.player === this.props.whoseTurn && (
-          <View style={styles.spareBalataContainer}>
-            <TouchableOpacity
-              style={styles.spareButton}
-              onPress={this.showSpareBalatas}
+        <View
+          style={[
+            styles.optionsContainer,
+            { opacity: computerBalatas ? 0 : 1 }
+          ]}
+        >
+          <Menu
+            style={{
+              transform: [
+                { rotate: this.props.player === "player2" ? "180deg" : "0deg" }
+              ]
+            }}
+          >
+            <MenuTrigger>
+              <View style={styles.button}>
+                <Text>Options</Text>
+              </View>
+            </MenuTrigger>
+            <MenuOptions
+              style={{
+                transform: [
+                  {
+                    rotate: this.props.player === "player2" ? "180deg" : "0deg"
+                  }
+                ]
+              }}
             >
-              <Text style={{ fontSize: 10 }}>Extra Balata</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+              <MenuOption
+                onSelect={() => this.flipOrUnflipAllBalatas("flip")}
+                text="Hide all"
+              />
+              <MenuOption
+                onSelect={() => this.flipOrUnflipAllBalatas("unflip")}
+                text="Show all"
+              />
+              <MenuOption
+                onSelect={this.showSpareBalatas}
+                text="Add extra balata"
+                disabled={this.props.player !== this.props.whoseTurn}
+              />
+            </MenuOptions>
+          </Menu>
+        </View>
 
         {playerBalatas
           ? playerBalatas.map((balata, i) => {
@@ -80,8 +128,9 @@ class PlayerBalatasArranger extends Component {
                     dots={balata.dots}
                     id={balata.id}
                     orientation="vertical"
-                    longPressable
-                    flippable
+                    longPressable={!computerBalatas}
+                    flippable={!computerBalatas}
+                    flipped
                     longPressed={this.onBalataChosen}
                     suddenFlip={this.state.flipAllBalatas}
                   />
@@ -89,22 +138,6 @@ class PlayerBalatasArranger extends Component {
               );
             })
           : null}
-
-        <View style={styles.flipBalataContainer}>
-          <TouchableOpacity
-            style={styles.flipButton}
-            onPress={() => this.flipOrUnflipAllBalatas("flip")}
-          >
-            <Text style={{ fontSize: 10 }}>Flip all</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.flipButton}
-            onPress={() => this.flipOrUnflipAllBalatas("unflip")}
-          >
-            <Text style={{ fontSize: 10 }}>Show all</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     );
   }
@@ -117,27 +150,15 @@ const styles = StyleSheet.create({
   balata: {
     marginHorizontal: 5
   },
-  spareBalataContainer: {
+  optionsContainer: {
     flexDirection: "column",
     justifyContent: "center"
   },
-  spareButton: {
+  button: {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#cacaca",
-    width: 60,
-    height: 30
-  },
-  flipBalataContainer: {
-    flexDirection: "column",
-    justifyContent: "center"
-  },
-  flipButton: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#ca839b",
     width: 60,
     height: 30
   }
@@ -149,7 +170,8 @@ const mapStateToProps = state => {
     player2Balatas: state.domino.player2Balatas,
     allBalatas: state.domino.allBalatas,
     groundBalatas: state.domino.groundBalatas,
-    whoseTurn: state.domino.whoseTurn
+    whoseTurn: state.domino.whoseTurn,
+    player2Identity: state.domino.player2Identity
   };
 };
 
