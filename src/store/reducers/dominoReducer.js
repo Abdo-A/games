@@ -26,8 +26,6 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case actionTypes.ON_BALATA_CHOSEN:
-      if (action.whoseTurn === "player1")
-        console.log("Computer led me to here 4", action.groundBalatas);
       return {
         ...state,
         allBalatas: action.allBalatas,
@@ -53,7 +51,6 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     default:
-      console.log("I am none reducer state");
       return state;
   }
 };

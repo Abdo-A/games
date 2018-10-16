@@ -6,6 +6,7 @@ import * as dominoActions from "../../../store/actions/dominoActions";
 import GroundBalatasArranger from "../BalatasArranger/GroundBalatasArranger/GroundBalatasArranger";
 import PlayerBalatasArranger from "../BalatasArranger/PlayerBalatasArranger/PlayerBalatasArranger";
 import SpareBalatasArranger from "../BalatasArranger/SpareBalatasArranger/SpareBalatasArranger";
+import Announcement from "./Announcement";
 
 class Container extends Component {
   componentDidMount() {
@@ -13,6 +14,17 @@ class Container extends Component {
   }
 
   render() {
+    if (this.props.awaitingChoosingOpponent) {
+      return (
+        <Announcement
+          header="Choose your opponent"
+          buttonOneTitle="Play with your friend"
+          buttonTwoTitle="Play with the computer"
+          buttonOnePress={() => this.props.onDecideOpponent("person")}
+          buttonTwoPress={() => this.props.onDecideOpponent("computer")}
+        />
+      );
+    }
     return (
       <View style={styles.root}>
         <PlayerBalatasArranger player="player2" />

@@ -81,7 +81,6 @@ export const onBalataChosen = (
   allBalatas,
   whoseTurn
 ) => {
-  if (whoseTurn === "player2") console.log("Computer led me to here!");
   let groundBalatasEdited = [...groundBalatas];
   let player1BalatasEdited = [...player1Balatas];
   let player2BalatasEdited = [...player2Balatas];
@@ -98,7 +97,6 @@ export const onBalataChosen = (
 
     orientation = "horizontalHeadToLeft";
   } else {
-    if (whoseTurn === "player2") console.log("Computer led me to here 2");
     const firstDotsInGroundQueue =
       groundBalatasEdited[0].orientation === "horizontalHeadToLeft"
         ? groundBalatasEdited[0].dots[0]
@@ -134,8 +132,6 @@ export const onBalataChosen = (
   }
 
   if (successFlag) {
-    if (whoseTurn === "player2") console.log("Computer led me to here 3");
-
     [
       groundBalatasEdited,
       player1BalatasEdited,
@@ -159,16 +155,14 @@ export const onBalataChosen = (
   }
 
   if (whoseTurn === "player2")
-    console.log("Computer led me to here 4", groundBalatasEdited);
-
-  return {
-    type: actionTypes.ON_BALATA_CHOSEN,
-    groundBalatas: groundBalatasEdited,
-    allBalatas: allBalatasEdited,
-    player1Balatas: player1BalatasEdited,
-    player2Balatas: player2BalatasEdited,
-    whoseTurn: whoseTurnEdited
-  };
+    return {
+      type: actionTypes.ON_BALATA_CHOSEN,
+      groundBalatas: groundBalatasEdited,
+      allBalatas: allBalatasEdited,
+      player1Balatas: player1BalatasEdited,
+      player2Balatas: player2BalatasEdited,
+      whoseTurn: whoseTurnEdited
+    };
 };
 
 // HELPER METHOD BEGIN
@@ -339,7 +333,6 @@ export const onComputerTurn = (
         )
       );
     }, 900);
-    console.log("Chosen by computer ", chosenBalata);
     dispatch(toggleSpareBalatas(false));
   } else {
     if (spareBalatas.length >= 1) {

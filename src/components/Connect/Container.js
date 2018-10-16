@@ -534,7 +534,7 @@ class Container extends Component {
     let player1Turn = this.state.currentPlayer === "player1" ? true : false;
 
     return (
-      <View style={styles.root}>
+      <View>
         <View style={styles.playersNotation}>
           <View style={styles.playerNotation}>
             <Text
@@ -616,7 +616,6 @@ class Container extends Component {
 }
 
 const styles = StyleSheet.create({
-  root: {},
   board: {
     width: 550,
     height: 300,
