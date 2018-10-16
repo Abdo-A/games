@@ -1,5 +1,6 @@
 import { initialBalatas } from "./helpers/initialBalatas";
 import * as actionTypes from "../actions/actionTypes";
+import { onComputerTurn, toggleSpareBalatas } from "../actions/dominoActions";
 
 const INITIAL_STATE = {
   allBalatas: initialBalatas, //array of objects

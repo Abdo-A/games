@@ -229,8 +229,9 @@ export const onSpareBalataChosen = (
   player2Balatas,
   allBalatas,
   groundBalatas,
-  whoseTurn
-) => {
+  whoseTurn,
+  hint
+) => dispatch => {
   let spareBalatasEdited = [...spareBalatas];
   let player1BalatasEdited = [...player1Balatas];
   let player2BalatasEdited = [...player2Balatas];
@@ -258,13 +259,28 @@ export const onSpareBalataChosen = (
     return balata;
   });
 
-  return {
+  dispatch({
     type: actionTypes.ON_SPARE_BALATA_CHOSEN,
     spareBalatas: spareBalatasEdited,
     allBalatas: allBalatasEdited,
     player1Balatas: player1BalatasEdited,
     player2Balatas: player2BalatasEdited
-  };
+  });
+
+  if (hint === "computerShouldPlayAfterChoosingaSpare") {
+    setTimeout(() => {
+      dispatch(
+        onComputerTurn(
+          player1BalatasEdited,
+          player2BalatasEdited,
+          groundBalatas,
+          allBalatasEdited,
+          spareBalatasEdited,
+          whoseTurn
+        )
+      );
+    }, 1000);
+  }
 };
 
 //---------------------------------------------------------------------------
@@ -324,9 +340,12 @@ export const onComputerTurn = (
       );
     }, 900);
     console.log("Chosen by computer ", chosenBalata);
+    dispatch(toggleSpareBalatas(false));
   } else {
     if (spareBalatas.length >= 1) {
-      dispatch(toggleSpareBalatas(true)); //400
+      setTimeout(() => {
+        dispatch(toggleSpareBalatas(true));
+      }, 400);
 
       const chosenSpareBalata = spareBalatas[0];
       setTimeout(() => {
@@ -338,10 +357,11 @@ export const onComputerTurn = (
             computerBalatas,
             allBalatas,
             groundBalatas,
-            whoseTurn
+            whoseTurn,
+            "computerShouldPlayAfterChoosingaSpare"
           )
         );
-      }, 1000);
+      }, 1400);
     } else {
       console.log("Computer lost");
     }

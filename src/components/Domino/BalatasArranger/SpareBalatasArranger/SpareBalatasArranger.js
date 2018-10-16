@@ -40,7 +40,7 @@ class SpareBalatasArranger extends Component {
       >
         {this.props.spareBalatas && this.props.spareBalatas.length >= 1
           ? this.props.spareBalatas.map((balata, i) => {
-              console.log(balata.id);
+              //console.log(balata.id);
               return (
                 <Balata
                   dots={balata.dots}
