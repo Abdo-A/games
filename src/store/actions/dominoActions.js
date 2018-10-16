@@ -154,15 +154,15 @@ export const onBalataChosen = (
     alert("Can't be played");
   }
 
-  if (whoseTurn === "player2")
-    return {
-      type: actionTypes.ON_BALATA_CHOSEN,
-      groundBalatas: groundBalatasEdited,
-      allBalatas: allBalatasEdited,
-      player1Balatas: player1BalatasEdited,
-      player2Balatas: player2BalatasEdited,
-      whoseTurn: whoseTurnEdited
-    };
+  //if (whoseTurn === "player2")
+  return {
+    type: actionTypes.ON_BALATA_CHOSEN,
+    groundBalatas: groundBalatasEdited,
+    allBalatas: allBalatasEdited,
+    player1Balatas: player1BalatasEdited,
+    player2Balatas: player2BalatasEdited,
+    whoseTurn: whoseTurnEdited
+  };
 };
 
 // HELPER METHOD BEGIN
@@ -359,4 +359,30 @@ export const onComputerTurn = (
       console.log("Computer lost");
     }
   }
+};
+
+//---------------------------------------------------------------------------
+
+export const onDecideOpponent = opponent => {
+  return {
+    type: actionTypes.ON_DECIDE_OPPONENT,
+    opponent: opponent
+  };
+};
+
+//---------------------------------------------------------------------------
+
+export const setWinner = winner => {
+  return {
+    type: actionTypes.SET_WINNER,
+    winner: winner
+  };
+};
+
+//---------------------------------------------------------------------------
+
+export const resetGameAndPlay = () => {
+  return {
+    type: actionTypes.RESET_GAME
+  };
 };

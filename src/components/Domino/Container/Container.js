@@ -14,6 +14,7 @@ class Container extends Component {
   }
 
   render() {
+    //handle if the user hasn't chosen his opponent yet
     if (this.props.awaitingChoosingOpponent) {
       return (
         <Announcement
@@ -25,6 +26,24 @@ class Container extends Component {
         />
       );
     }
+
+    //handle if game is finished
+    if (this.props.winner) {
+      return (
+        <Announcement
+          header={
+            this.props.winner === "player1"
+              ? "Player 1"
+              : this.props.player2Identity + " Won"
+          }
+          buttonOneTitle="Continue playing"
+          buttonTwoTitle="Play a different game"
+          buttonOnePress={this.props.resetGameAndPlay}
+          buttonTwoPress={this.props.goToHome}
+        />
+      );
+    }
+
     return (
       <View style={styles.root}>
         <PlayerBalatasArranger player="player2" />
@@ -54,13 +73,19 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     allBalatas: state.domino.allBalatas,
-    groundBalatas: state.domino.groundBalatas
+    groundBalatas: state.domino.groundBalatas,
+    awaitingChoosingOpponent: state.domino.awaitingChoosingOpponent,
+    player2Identity: state.domino.player2Identity,
+    winner: state.domino.winner
   };
 };
 
 const mapDispatchToProps = {
   setRandomInitialBalatasForPlayers:
-    dominoActions.setRandomInitialBalatasForPlayers
+    dominoActions.setRandomInitialBalatasForPlayers,
+  onDecideOpponent: dominoActions.onDecideOpponent,
+  resetGameAndPlay: dominoActions.resetGameAndPlay,
+  quitGame: dominoActions.quitGame
 };
 
 export default connect(

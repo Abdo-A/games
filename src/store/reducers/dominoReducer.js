@@ -1,17 +1,20 @@
 import { initialBalatas } from "./helpers/initialBalatas";
 import * as actionTypes from "../actions/actionTypes";
-import { onComputerTurn, toggleSpareBalatas } from "../actions/dominoActions";
 
 const INITIAL_STATE = {
   allBalatas: initialBalatas, //array of objects
   groundBalatas: [], //array of objects
   player1Balatas: [], //array of objects
   player2Balatas: [], //array of objects
+  player1Score: 0,
+  player2Score: 0,
   spareBalatas: [], //array of objects
   player1Identity: "person", //person,computer
-  player2Identity: "computer", //person,computer
+  player2Identity: null, //person,computer
   whoseTurn: "player1", //player1, player2
-  showSpareBalatas: false
+  showSpareBalatas: false,
+  awaitingChoosingOpponent: true,
+  winner: null //player1, player2
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -49,6 +52,22 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         showSpareBalatas: action.trueOrFalse
       };
+
+    case actionTypes.ON_DECIDE_OPPONENT:
+      return {
+        ...state,
+        player2Identity: action.opponent,
+        awaitingChoosingOpponent: false
+      };
+
+    case actionTypes.SET_WINNER:
+      return {
+        ...state,
+        winner: winner
+      };
+
+    case actionTypes.RESET_GAME_AND_PLAY:
+      return {};
 
     default:
       return state;
