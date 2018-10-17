@@ -4,6 +4,11 @@ import * as actionTypes from "./actionTypes";
 
 export const setRandomInitialBalatasForPlayers = allBalatas => {
   let allBalatasEdited = [...allBalatas];
+
+  for (let balata in allBalatasEdited) {
+    balata.belongsTo = "spare";
+  }
+
   let player1Balatas = [];
   let player2Balatas = [];
   let spareBalatas = [];
@@ -372,7 +377,69 @@ export const onDecideOpponent = opponent => {
 
 //---------------------------------------------------------------------------
 
-export const setWinner = winner => {
+export const checkWinner = () => (dispatch, getState) => {
+  const state = getState().domino;
+
+  let winner = null;
+
+  let timeoutToAnnounceWinner = 2000;
+
+  const firstDotsInGroundQueue =
+    state.groundBalatas[0].orientation === "horizontalHeadToLeft"
+      ? state.groundBalatas[0].dots[0]
+      : state.groundBalatas[0].dots[1];
+
+  const lastDotsInGroundQueue =
+    state.groundBalatas[state.groundBalatas.length - 1].orientation ===
+    "horizontalHeadToLeft"
+      ? state.groundBalatas[state.groundBalatas.length - 1].dots[1]
+      : state.groundBalatas[state.groundBalatas.length - 1].dots[0];
+
+  if (state.player1Balatas.length === 0) {
+    winner = "player1";
+  } else if (state.player2Balatas.length === 0) {
+    winner = "player2";
+  } else if (state.spareBalatas.length === 0) {
+    timeoutToAnnounceWinner = 5000;
+
+    let player1Loses = true;
+    let player2Loses = true;
+
+    for (let balata in state.player1Balatas) {
+      if (
+        balata.dots[0] === firstDotsInGroundQueue ||
+        balata.dots[1] === lastDotsInGroundQueue
+      ) {
+        player1Loses = false;
+      }
+    }
+
+    for (let balata in state.player2Balatas) {
+      if (
+        balata.dots[0] === firstDotsInGroundQueue ||
+        balata.dots[1] === lastDotsInGroundQueue
+      ) {
+        player2Loses = false;
+      }
+    }
+
+    if (player1Loses) {
+      winner = "player2";
+    } else if (player2Loses) {
+      winner = "player1";
+    }
+  }
+
+  if (winner) {
+    setTimeout(() => {
+      dispatch(setWinner(winner));
+    }, timeoutToAnnounceWinner);
+  }
+};
+
+//---------------------------------------------------------------------------
+
+const setWinner = winner => {
   return {
     type: actionTypes.SET_WINNER,
     winner: winner
@@ -381,8 +448,38 @@ export const setWinner = winner => {
 
 //---------------------------------------------------------------------------
 
-export const resetGameAndPlay = () => {
-  return {
-    type: actionTypes.RESET_GAME
-  };
+export const resetGameAndPlay = () => (dispatch, getState) => {
+  const state = { ...getState().domino };
+
+  let player1Score = state.player1Score;
+  let player2Score = state.player2Score;
+
+  let winner = state.winner;
+
+  let scoreSum = 0;
+
+  if (winner === "player1") {
+    for (let balata in state.player2Balatas) {
+      scoreSum += balata.dots[0];
+      scoreSum += balata.dots[1];
+    }
+    player1Score += scoreSum;
+  }
+
+  if (winner === "player2") {
+    for (let balata in state.player1Balatas) {
+      scoreSum += balata.dots[0];
+      scoreSum += balata.dots[1];
+    }
+    player2Score += scoreSum;
+  }
+
+  dispatch(setRandomInitialBalatasForPlayers(state.allBalatas));
+
+  dispatch({
+    type: actionTypes.RESET_GAME_AND_PLAY,
+    player1Score: player1Score,
+    player2Score: player2Score,
+    whoseTurn: winner
+  });
 };

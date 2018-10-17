@@ -63,7 +63,9 @@ const styles = StyleSheet.create({
   balatas: {
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: 20
+    paddingTop: 20,
+    position: "absolute",
+    left: 0
   }
 });
 

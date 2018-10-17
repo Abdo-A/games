@@ -51,6 +51,8 @@ class PlayerBalatasArranger extends Component {
           this.props.whoseTurn
         );
       }
+
+      this.props.checkWinner();
     } else {
       alert("It's not your turn");
     }
@@ -193,7 +195,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   onBalataChosen: dominoActions.onBalataChosen,
   toggleSpareBalatas: dominoActions.toggleSpareBalatas,
-  onComputerTurn: dominoActions.onComputerTurn
+  onComputerTurn: dominoActions.onComputerTurn,
+  checkWinner: dominoActions.checkWinner
 };
 
 export default connect(

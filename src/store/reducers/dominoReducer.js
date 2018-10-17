@@ -63,11 +63,16 @@ export default (state = INITIAL_STATE, action) => {
     case actionTypes.SET_WINNER:
       return {
         ...state,
-        winner: winner
+        winner: action.winner
       };
 
     case actionTypes.RESET_GAME_AND_PLAY:
-      return {};
+      return {
+        player1Score: action.player1Score,
+        player2Score: action.player2Score,
+        winner: null,
+        whoseTurn: action.whoseTurn
+      };
 
     default:
       return state;

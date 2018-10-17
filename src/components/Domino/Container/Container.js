@@ -33,8 +33,8 @@ class Container extends Component {
         <Announcement
           header={
             this.props.winner === "player1"
-              ? "Player 1"
-              : this.props.player2Identity + " Won"
+              ? "Player 1" + " Won!"
+              : this.props.player2Identity + " Won!"
           }
           buttonOneTitle="Continue playing"
           buttonTwoTitle="Play a different game"
@@ -52,9 +52,7 @@ class Container extends Component {
 
         <PlayerBalatasArranger player="player1" />
 
-        <View style={{ position: "absolute", left: 0 }}>
-          <SpareBalatasArranger />
-        </View>
+        <SpareBalatasArranger />
       </View>
     );
   }
