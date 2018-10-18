@@ -25,7 +25,8 @@ export default (state = INITIAL_STATE, action) => {
         allBalatas: action.allBalatas,
         player1Balatas: action.player1Balatas,
         player2Balatas: action.player2Balatas,
-        spareBalatas: action.spareBalatas
+        spareBalatas: action.spareBalatas,
+        winner: null
       };
 
     case actionTypes.ON_BALATA_CHOSEN:
@@ -68,6 +69,7 @@ export default (state = INITIAL_STATE, action) => {
 
     case actionTypes.RESET_GAME_AND_PLAY:
       return {
+        ...state,
         player1Score: action.player1Score,
         player2Score: action.player2Score,
         winner: null,

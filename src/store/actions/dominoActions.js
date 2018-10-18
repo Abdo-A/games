@@ -405,7 +405,7 @@ export const checkWinner = () => (dispatch, getState) => {
     let player1Loses = true;
     let player2Loses = true;
 
-    for (let balata in state.player1Balatas) {
+    for (let balata of state.player1Balatas) {
       if (
         balata.dots[0] === firstDotsInGroundQueue ||
         balata.dots[1] === lastDotsInGroundQueue
@@ -414,7 +414,7 @@ export const checkWinner = () => (dispatch, getState) => {
       }
     }
 
-    for (let balata in state.player2Balatas) {
+    for (let balata of state.player2Balatas) {
       if (
         balata.dots[0] === firstDotsInGroundQueue ||
         balata.dots[1] === lastDotsInGroundQueue
@@ -459,7 +459,7 @@ export const resetGameAndPlay = () => (dispatch, getState) => {
   let scoreSum = 0;
 
   if (winner === "player1") {
-    for (let balata in state.player2Balatas) {
+    for (let balata of state.player2Balatas) {
       scoreSum += balata.dots[0];
       scoreSum += balata.dots[1];
     }
@@ -467,7 +467,7 @@ export const resetGameAndPlay = () => (dispatch, getState) => {
   }
 
   if (winner === "player2") {
-    for (let balata in state.player1Balatas) {
+    for (let balata of state.player1Balatas) {
       scoreSum += balata.dots[0];
       scoreSum += balata.dots[1];
     }

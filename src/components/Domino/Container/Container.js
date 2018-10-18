@@ -3,14 +3,16 @@ import { View, Text, StyleSheet } from "react-native";
 import React, { Component } from "react";
 
 import * as dominoActions from "../../../store/actions/dominoActions";
+import Announcement from "./Announcement";
 import GroundBalatasArranger from "../BalatasArranger/GroundBalatasArranger/GroundBalatasArranger";
 import PlayerBalatasArranger from "../BalatasArranger/PlayerBalatasArranger/PlayerBalatasArranger";
+import ScoreDisplayer from "../ScoreDisplayer/ScoreDisplayer";
 import SpareBalatasArranger from "../BalatasArranger/SpareBalatasArranger/SpareBalatasArranger";
-import Announcement from "./Announcement";
 
 class Container extends Component {
   componentDidMount() {
     this.props.setRandomInitialBalatasForPlayers(this.props.allBalatas);
+    console.log("Container");
   }
 
   render() {
@@ -53,6 +55,8 @@ class Container extends Component {
         <PlayerBalatasArranger player="player1" />
 
         <SpareBalatasArranger />
+
+        <ScoreDisplayer />
       </View>
     );
   }
