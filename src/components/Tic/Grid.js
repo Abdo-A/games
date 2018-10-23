@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Platform } from "react-native";
 import React, { Component } from "react";
 
 import Cell from "./Cell";
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "red",
     fontSize: 30,
-    fontFamily: "monospace",
+    fontFamily: Platform.OS === "ios" ? "System" : "monospace",
     marginTop: 10
   }
 });

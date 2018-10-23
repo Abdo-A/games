@@ -5,9 +5,9 @@ import * as actionTypes from "./actionTypes";
 export const setRandomInitialBalatasForPlayers = allBalatas => {
   let allBalatasEdited = [...allBalatas];
 
-  for (let balata in allBalatasEdited) {
-    balata.belongsTo = "spare";
-  }
+  // for (let balata of allBalatasEdited) {
+  //   balata.belongsTo = "spare";
+  // }
 
   let player1Balatas = [];
   let player2Balatas = [];
@@ -482,4 +482,12 @@ export const resetGameAndPlay = () => (dispatch, getState) => {
     player2Score: player2Score,
     whoseTurn: winner
   });
+};
+
+//---------------------------------------------------------------------------
+
+export const quitGame = () => {
+  return {
+    type: actionTypes.QUIT_GAME
+  };
 };

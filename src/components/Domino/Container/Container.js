@@ -12,7 +12,10 @@ import SpareBalatasArranger from "../BalatasArranger/SpareBalatasArranger/SpareB
 class Container extends Component {
   componentDidMount() {
     this.props.setRandomInitialBalatasForPlayers(this.props.allBalatas);
-    console.log("Container");
+  }
+
+  componentWillUnmount() {
+    this.props.quitGame();
   }
 
   render() {

@@ -69,11 +69,17 @@ export default (state = INITIAL_STATE, action) => {
 
     case actionTypes.RESET_GAME_AND_PLAY:
       return {
-        ...state,
+        ...INITIAL_STATE,
         player1Score: action.player1Score,
         player2Score: action.player2Score,
         winner: null,
         whoseTurn: action.whoseTurn
+      };
+
+    case actionTypes.QUIT_GAME:
+      console.log("game quit");
+      return {
+        ...INITIAL_STATE
       };
 
     default:

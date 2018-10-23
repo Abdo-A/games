@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Platform } from "react-native";
 import React from "react";
 
 const Header = props => {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   textStyle: {
     marginTop: 55,
     fontSize: 30,
-    fontFamily: "monospace"
+    fontFamily: Platform.OS === "ios" ? "System" : "monospace"
   }
 });
 
